@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": [
+          "^std$"
+        ]
+      }
+    ]
+  }
+}
