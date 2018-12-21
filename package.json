@@ -5,11 +5,14 @@
     "url": "https://github.com/jkcfg/kubernetes/issues"
   },
   "dependencies": {},
-  "description": "jk standard library",
+  "description": "jk Kubernetes library",
   "devDependencies": {
-    "eslint": "^5.9.0",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "jest": "^23.6.0",
     "rollup": "^0.67.0",
     "rollup-plugin-includepaths": "^0.2.3",
     "terser": "^3.10.11"
@@ -22,6 +25,7 @@
   ],
   "license": "Apache-2.0",
   "main": "lib/kubernetes.mjs",
+  "module": "src/kubernetes.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jkcfg/kubernetes.git"
@@ -29,7 +33,15 @@
   "scripts": {
     "build": "rollup -c | terser --mangle --module > lib/kubernetes.mjs",
     "lint": "eslint src",
-    "test": "npm run lint"
+    "test": "jest"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/tests/**"
+    ],
+    "transform": {
+      ".*": "<rootDir>/node_modules/babel-jest"
+    }
   },
   "version": "0.1.0"
 }

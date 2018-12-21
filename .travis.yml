@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "node" # always use the latest; we are only using it as a test runner for now
+cache: npm
+
+jobs:
+  include:
+    - script: npm run lint
+    - script: npm test
