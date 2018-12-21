@@ -37,13 +37,13 @@ class Deployment {
 
 class ConfigMap {
   constructor(ns, name, data) {
-    this.apiVersion = "v1";
-    this.kind = "ConfigMap";
+    this.apiVersion = 'v1';
+    this.kind = 'ConfigMap';
     this.metadata = new Meta(ns, name);
     this.data = data;
   }
 }
 
 export {
-  Container, Meta, Deployment,
+  Container, Meta, Deployment, ConfigMap,
 };

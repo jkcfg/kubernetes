@@ -1,4 +1,4 @@
-import { dataFromDir } from '../src/cons/data';
+import dataFromDir from '../src/cons/data';
 
 function dir(path) {
   if (path !== 'config') {
