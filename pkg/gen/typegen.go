@@ -254,7 +254,7 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 
 func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	refPrefix := ""
-	if opts.generatorType == provider {
+	if opts.generatorType == api {
 		refPrefix = "outputApi"
 	}
 
@@ -332,8 +332,8 @@ type definition struct {
 type gentype int
 
 const (
-	provider gentype = iota
-	inputsAPI
+	api gentype = iota
+	shapes
 )
 
 const (
@@ -345,8 +345,8 @@ type groupOpts struct {
 	generatorType gentype
 }
 
-func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI} }
-func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider} }
+func shapesOpts() groupOpts { return groupOpts{generatorType: shapes} }
+func apiOpts() groupOpts    { return groupOpts{generatorType: api} }
 
 func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*GroupConfig {
 	// Map definition JSON object -> `definition` with metadata.
@@ -472,7 +472,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			props := d.data["properties"].(map[string]interface{})
 			_, kindExists := props["kind"]
 			_, apiVersionExists := props["apiVersion"]
-			if opts.generatorType == provider && (!kindExists || !apiVersionExists) {
+			if opts.generatorType == api && (!kindExists || !apiVersionExists) {
 				return linq.From([]*KindConfig{})
 			}
 

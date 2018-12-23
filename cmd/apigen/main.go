@@ -48,7 +48,7 @@ func main() {
 }
 
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
-	inputAPIts, providerts, err := gen.NodeJSClient(data, templateDir)
+	shapes, api, err := gen.NodeJSClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
@@ -58,18 +58,18 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
-	typesDir := fmt.Sprintf("%s/types", outdir)
+	typesDir := fmt.Sprintf("%s", outdir)
 	err = os.MkdirAll(typesDir, 0700)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/input.ts", typesDir), []byte(inputAPIts), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/shapes.ts", typesDir), []byte(shapes), 0777)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/provider.ts", outdir), []byte(providerts), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/api.ts", outdir), []byte(api), 0777)
 	if err != nil {
 		panic(err)
 	}
