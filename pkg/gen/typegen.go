@@ -285,14 +285,7 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
 				mapType := additionalProperties.(map[string]interface{})
 				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
-					switch opts.generatorType {
-					case inputsAPI:
-						return fmt.Sprintf("{[key: %s]: pulumi.Input<%s>}", ktype, ktype)
-					case outputsAPI:
-						return fmt.Sprintf("{[key: %s]: %s}", ktype, ktype)
-					case provider:
-						return fmt.Sprintf("{[key: %s]: pulumi.Output<%s>}", ktype, ktype)
-					}
+					return fmt.Sprintf("{[key: %s]: %s}", ktype, ktype)
 				}
 			}
 		}
@@ -363,7 +356,6 @@ type gentype int
 const (
 	provider gentype = iota
 	inputsAPI
-	outputsAPI
 )
 
 type language string
@@ -379,10 +371,7 @@ type groupOpts struct {
 }
 
 func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: typescript} }
-func nodeJSOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, language: typescript} }
 func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, language: typescript} }
-
-func pythonProvider() groupOpts { return groupOpts{generatorType: provider, language: python} }
 
 func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*GroupConfig {
 	// Map definition JSON object -> `definition` with metadata.

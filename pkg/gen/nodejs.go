@@ -30,7 +30,7 @@ import (
 // NodeJSClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
 func NodeJSClient(
 	swagger map[string]interface{}, templateDir string,
-) (inputsts, outputsts, providerts, helmts, packagejson string, err error) {
+) (inputsts, providerts string, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, nodeJSInputs())
@@ -39,16 +39,7 @@ func NodeJSClient(
 			"Groups": groupsSlice,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
-	}
-
-	groupsSlice = createGroups(definitions, nodeJSOutputs())
-	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.ts.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return "", "", "", "", "", err
+		return "", "", err
 	}
 
 	groupsSlice = createGroups(definitions, nodeJSProvider())
@@ -57,24 +48,8 @@ func NodeJSClient(
 			"Groups": groupsSlice,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
+		return "", "", err
 	}
 
-	helmts, err = mustache.RenderFile(fmt.Sprintf("%s/helm.ts.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return "", "", "", "", "", err
-	}
-
-	packagejson, err = mustache.RenderFile(fmt.Sprintf("%s/package.json.mustache", templateDir),
-		map[string]interface{}{
-			"ProviderVersion": "0.1.0",
-		})
-	if err != nil {
-		return "", "", "", "", "", err
-	}
-
-	return inputsts, outputsts, providerts, helmts, packagejson, nil
+	return inputsts, providerts, nil
 }

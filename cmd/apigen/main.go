@@ -48,7 +48,7 @@ func main() {
 }
 
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
-	inputAPIts, ouputAPIts, providerts, helmts, packagejson, err := gen.NodeJSClient(data, templateDir)
+	inputAPIts, providerts, err := gen.NodeJSClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
@@ -69,25 +69,8 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/output.ts", typesDir), []byte(ouputAPIts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
 	err = ioutil.WriteFile(fmt.Sprintf("%s/provider.ts", outdir), []byte(providerts), 0777)
 	if err != nil {
 		panic(err)
 	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/helm.ts", outdir), []byte(helmts), 0777)
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("%s/package.json", outdir), []byte(packagejson), 0777)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%s/package.json\n", outdir)
-	fmt.Println(err)
 }
