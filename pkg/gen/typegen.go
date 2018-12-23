@@ -228,31 +228,16 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 
 	var wrapParagraph func(line string) []string
 	var renderComment func(lines []string) string
-	switch opts.language {
-	case python:
-		wrapParagraph = func(paragraph string) []string {
-			borderLen := len(prefix)
-			wrapped := wordwrap.WrapString(paragraph, 100-uint(borderLen))
-			return strings.Split(wrapped, "\n")
-		}
-		renderComment = func(lines []string) string {
-			joined := strings.Join(lines, fmt.Sprintf("\n%s", prefix))
-			return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
-		}
-	case typescript:
-		wrapParagraph = func(paragraph string) []string {
-			// Escape comment termination.
-			escaped := strings.Replace(paragraph, "*/", "*&#8205;/", -1)
-			borderLen := len(prefix + " * ")
-			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
-			return strings.Split(wrapped, "\n")
-		}
-		renderComment = func(lines []string) string {
-			joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
-			return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
-		}
-	default:
-		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+	wrapParagraph = func(paragraph string) []string {
+		// Escape comment termination.
+		escaped := strings.Replace(paragraph, "*/", "*&#8205;/", -1)
+		borderLen := len(prefix + " * ")
+		wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
+		return strings.Split(wrapped, "\n")
+	}
+	renderComment = func(lines []string) string {
+		joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
+		return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
 	}
 
 	commentstr, _ := comment.(string)
@@ -329,14 +314,7 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 }
 
 func makeType(prop map[string]interface{}, opts groupOpts) string {
-	switch opts.language {
-	case typescript:
-		return makeTypescriptType(prop, opts)
-	case python:
-		panic("Python does not support output or input types")
-	default:
-		panic("Unrecognized generator type")
-	}
+	return makeTypescriptType(prop, opts)
 }
 
 // --------------------------------------------------------------------------
@@ -358,8 +336,6 @@ const (
 	inputsAPI
 )
 
-type language string
-
 const (
 	python     = "python"
 	typescript = "typescript"
@@ -367,11 +343,10 @@ const (
 
 type groupOpts struct {
 	generatorType gentype
-	language      language
 }
 
-func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: typescript} }
-func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, language: typescript} }
+func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI} }
+func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider} }
 
 func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*GroupConfig {
 	// Map definition JSON object -> `definition` with metadata.
@@ -439,13 +414,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
-				WhereT(func(kv linq.KeyValue) bool {
-					propName := kv.Key.(string)
-					if opts.language == python && (propName == "apiVersion" || propName == "kind") {
-						return false
-					}
-					return true
-				}).
 				SelectT(func(kv linq.KeyValue) *Property {
 					propName := kv.Key.(string)
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
@@ -459,16 +427,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 					}
 
-					var prefix string
-					var t string
-					switch opts.language {
-					case typescript:
-						prefix = "      "
-						t = makeType(prop, opts)
-					case python:
-						prefix = "        "
-						// Python currently does not emit types for use.
-					}
+					prefix := "      "
+					t := makeType(prop, opts)
 
 					return &Property{
 						comment:      fmtComment(prop["description"], prefix, opts),
