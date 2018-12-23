@@ -34,7 +34,7 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/tests/**"
+      "<rootDir>/tests/*.test.js"
     ],
     "transform": {
       ".*": "<rootDir>/node_modules/babel-jest"
