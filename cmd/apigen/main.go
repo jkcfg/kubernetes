@@ -59,17 +59,17 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	typesDir := fmt.Sprintf("%s", outdir)
-	err = os.MkdirAll(typesDir, 0700)
+	err = os.MkdirAll(typesDir, 0770)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/shapes.ts", typesDir), []byte(shapes), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/shapes.ts", typesDir), []byte(shapes), 0660)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/api.ts", outdir), []byte(api), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/api.ts", outdir), []byte(api), 0660)
 	if err != nil {
 		panic(err)
 	}
