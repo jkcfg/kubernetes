@@ -26,6 +26,7 @@
 // Easy peasy!
 
 import { patchResource } from './transforms';
+import { generateConfigMap } from './generators';
 
 const flatten = array => [].concat(...array);
 const pipeline = (...fns) => v => fns.reduce((acc, val) => val(acc), v);
@@ -35,10 +36,12 @@ const pipeline = (...fns) => v => fns.reduce((acc, val) => val(acc), v);
 // resources to write out.
 const overlay = ({ read, Encoding }) => async function assemble(path, config) {
   const readObj = f => read(`${path}/${f}`, { encoding: Encoding.JSON });
+  const readStr = f => read(`${path}/${f}`, { encoding: Encoding.String });
   const {
     resources: resourceFiles = [],
     bases: baseFiles = [],
     patches: patchFiles = [],
+    configMapGenerator = [],
   } = config;
 
   const patches = [];
@@ -49,13 +52,14 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
   // TODO: add the other kinds of transformation: imageTags,
   // globalAnnotations, etc.
 
-  let resources = []; // :: [Promise [Resource]]
+  const resources = []; // :: [Promise [Resource]]
   baseFiles.forEach((f) => {
     const obj = readObj(`${f}/kustomize.yaml`);
     resources.push(obj.then(o => assemble(`${path}/${f}`, o)));
   });
 
   resources.push(Promise.all(resourceFiles.map(readObj)));
+  resources.push(Promise.all(configMapGenerator.map(generateConfigMap(readStr))));
 
   const transform = pipeline(...await Promise.all(patches));
   return Promise.all(resources).then(flatten).then(rs => rs.map(transform));

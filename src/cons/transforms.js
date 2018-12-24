@@ -14,7 +14,7 @@ function resourceMatch(target) {
     const { name: n, namespace: ns } = m;
     if (n !== name || ns !== namespace) return false;
     return true;
-  }
+  };
 }
 
 // patchResource returns a function that will patch the given object
@@ -22,7 +22,7 @@ function resourceMatch(target) {
 // untouched.
 function patchResource(p) {
   const match = resourceMatch(p);
-  return v => match(v) ? patch(v, p) : v;
+  return v => (match(v) ? patch(v, p) : v);
 }
 
 export { patchResource };

@@ -5,7 +5,7 @@
     "url": "https://github.com/jkcfg/kubernetes/issues"
   },
   "dependencies": {
-    "@jkcfg/mixins": "0.2.0"
+    "@jkcfg/mixins": "^0.1.2"
   },
   "description": "jk Kubernetes library",
   "devDependencies": {
