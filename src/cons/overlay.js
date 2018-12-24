@@ -25,6 +25,8 @@
 //
 // Easy peasy!
 
+const flatten = array => [].concat(...array);
+
 // overlay constructs an interpreter which takes an overlay object (as
 // would be parsed from a `kustomize.yaml`) and constructs a set of
 // resources to write out.
@@ -46,12 +48,13 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
 
   let resources = [];
   baseFiles.forEach((f) => {
-    const obj = readObj(`${path}/${f}/kustomize.yaml`);
-    resources = resources.concat(obj.then(o => assemble(`${path}/${f}`, o)));
+    const obj = readObj(`${f}/kustomize.yaml`);
+    resources.push(obj.then(o => assemble(`${path}/${f}`, o)));
   });
 
-  resourceFiles.forEach(f => resources.append(readObj(f)));
-  return Promise.all(resources);
+  resources.push(Promise.all(resourceFiles.map(readObj)));
+
+  return Promise.all(resources).then(flatten);
 };
 
 export default overlay;
