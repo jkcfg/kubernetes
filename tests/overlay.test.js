@@ -14,10 +14,18 @@ test('trivial overlay: no bases, resources, patches', () => {
 const deployment = {
   apiVersion: 'apps/v1',
   kind: 'Deployment',
+  metadata: {
+    name: 'deploy1',
+    namespace: 'test-ns',
+  },
 };
 const service = {
   apiVersion: 'v1',
   kind: 'Service',
+  metadata: {
+    name: 'service1',
+    namespace: 'test-ns',
+  },
 };
 
 
@@ -54,5 +62,41 @@ test('compose bases', () => {
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
     expect(v).toEqual([deployment, service]);
+  });
+});
+
+test('patch resource', () => {
+  const patch = {
+    apiVersion: deployment.apiVersion,
+    kind: deployment.kind,
+    metadata: deployment.metadata,
+    spec: {
+      replicas: 10,
+    },
+  };
+
+  const patchedDeployment = {
+    ...deployment,
+    spec: {
+      ...deployment.spec,
+      replicas: 10,
+    },
+  };
+
+  const files = {
+    './service.yaml': { json: service },
+    './deployment.yaml': { json: deployment },
+    './patch.yaml': { json: patch },
+  };
+
+  const kustomize = {
+    resources: ['service.yaml', 'deployment.yaml'],
+    patches: ['patch.yaml'],
+  };
+
+  const o = overlay(fs({}, files));
+  expect.assertions(1);
+  return o('.', kustomize).then((v) => {
+    expect(v).toEqual([service, patchedDeployment]);
   });
 });

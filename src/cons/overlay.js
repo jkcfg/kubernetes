@@ -25,7 +25,10 @@
 //
 // Easy peasy!
 
+import { patchResource } from './transforms';
+
 const flatten = array => [].concat(...array);
+const pipeline = (...fns) => v => fns.reduce((acc, val) => val(acc), v);
 
 // overlay constructs an interpreter which takes an overlay object (as
 // would be parsed from a `kustomize.yaml`) and constructs a set of
@@ -35,18 +38,18 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
   const {
     resources: resourceFiles = [],
     bases: baseFiles = [],
-    // patches: patchFiles = [],
+    patches: patchFiles = [],
   } = config;
 
-  // TODO: implement interpretPatch and uncomment ..
-  // const transforms = [];
-  // patchFiles.forEach((f) => {
-  //   transforms.append(readObj(f).then(interpretPatch));
-  // });
+  const patches = [];
+  patchFiles.forEach((f) => {
+    patches.push(readObj(f).then(patchResource));
+  });
+
   // TODO: add the other kinds of transformation: imageTags,
   // globalAnnotations, etc.
 
-  let resources = [];
+  let resources = []; // :: [Promise [Resource]]
   baseFiles.forEach((f) => {
     const obj = readObj(`${f}/kustomize.yaml`);
     resources.push(obj.then(o => assemble(`${path}/${f}`, o)));
@@ -54,7 +57,8 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
 
   resources.push(Promise.all(resourceFiles.map(readObj)));
 
-  return Promise.all(resources).then(flatten);
+  const transform = pipeline(...await Promise.all(patches));
+  return Promise.all(resources).then(flatten).then(rs => rs.map(transform));
 };
 
 export default overlay;
