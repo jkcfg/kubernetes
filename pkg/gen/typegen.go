@@ -409,6 +409,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			}
 
 			ps := linq.From(d.data["properties"]).
+				WhereT(func(kv linq.KeyValue) bool { return kv.Key.(string) != "status" }).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				SelectT(func(kv linq.KeyValue) *Property {
 					propName := kv.Key.(string)

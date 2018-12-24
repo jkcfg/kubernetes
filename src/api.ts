@@ -650,11 +650,6 @@ export namespace apiextensions {
        */
       public spec?: apiextensions.v1beta1.CustomResourceDefinitionSpec;
 
-      /**
-       * Status indicates the actual state of the CustomResourceDefinition
-       */
-      public status?: apiextensions.v1beta1.CustomResourceDefinitionStatus;
-
 
       /**
       * Create a apiextensions.v1beta1.CustomResourceDefinition object with the given unique name and description.
@@ -667,7 +662,6 @@ export namespace apiextensions {
           this.kind = "CustomResourceDefinition";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -690,11 +684,6 @@ export namespace apiextensions {
        * Unique, one-word, CamelCase reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type is the type of the condition.
@@ -979,11 +968,6 @@ export namespace apiextensions {
        */
       public scale?: apiextensions.v1beta1.CustomResourceSubresourceScale;
 
-      /**
-       * Status denotes the status subresource for CustomResources
-       */
-      public status?: any;
-
 
     }
 
@@ -1231,11 +1215,6 @@ export namespace apiregistration {
        */
       public spec?: apiregistration.v1.APIServiceSpec;
 
-      /**
-       * Status contains derived information about an API server
-       */
-      public status?: apiregistration.v1.APIServiceStatus;
-
 
       /**
       * Create a apiregistration.v1.APIService object with the given unique name and description.
@@ -1248,7 +1227,6 @@ export namespace apiregistration {
           this.kind = "APIService";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -1269,11 +1247,6 @@ export namespace apiregistration {
        * Unique, one-word, CamelCase reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type is the type of the condition.
@@ -1449,11 +1422,6 @@ export namespace apiregistration {
        */
       public spec?: apiregistration.v1beta1.APIServiceSpec;
 
-      /**
-       * Status contains derived information about an API server
-       */
-      public status?: apiregistration.v1beta1.APIServiceStatus;
-
 
       /**
       * Create a apiregistration.v1beta1.APIService object with the given unique name and description.
@@ -1466,7 +1434,6 @@ export namespace apiregistration {
           this.kind = "APIService";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -1487,11 +1454,6 @@ export namespace apiregistration {
        * Unique, one-word, CamelCase reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type is the type of the condition.
@@ -1780,13 +1742,6 @@ export namespace apps {
        */
       public spec?: apps.v1.DaemonSetSpec;
 
-      /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: apps.v1.DaemonSetStatus;
-
 
       /**
       * Create a apps.v1.DaemonSet object with the given unique name and description.
@@ -1799,7 +1754,6 @@ export namespace apps {
           this.kind = "DaemonSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -1822,11 +1776,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of DaemonSet condition.
@@ -2036,11 +1985,6 @@ export namespace apps {
        */
       public spec?: apps.v1.DeploymentSpec;
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      public status?: apps.v1.DeploymentStatus;
-
 
       /**
       * Create a apps.v1.Deployment object with the given unique name and description.
@@ -2053,7 +1997,6 @@ export namespace apps {
           this.kind = "Deployment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -2081,11 +2024,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of deployment condition.
@@ -2301,13 +2239,6 @@ export namespace apps {
        */
       public spec?: apps.v1.ReplicaSetSpec;
 
-      /**
-       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
-       * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: apps.v1.ReplicaSetStatus;
-
 
       /**
       * Create a apps.v1.ReplicaSet object with the given unique name and description.
@@ -2320,7 +2251,6 @@ export namespace apps {
           this.kind = "ReplicaSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -2343,11 +2273,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of replica set condition.
@@ -2578,12 +2503,6 @@ export namespace apps {
        */
       public spec?: apps.v1.StatefulSetSpec;
 
-      /**
-       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
-       * some window of time.
-       */
-      public status?: apps.v1.StatefulSetStatus;
-
 
       /**
       * Create a apps.v1.StatefulSet object with the given unique name and description.
@@ -2596,7 +2515,6 @@ export namespace apps {
           this.kind = "StatefulSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -2619,11 +2537,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of statefulset condition.
@@ -2968,11 +2881,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta1.DeploymentSpec;
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      public status?: apps.v1beta1.DeploymentStatus;
-
 
       /**
       * Create a apps.v1beta1.Deployment object with the given unique name and description.
@@ -2985,7 +2893,6 @@ export namespace apps {
           this.kind = "Deployment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -3013,11 +2920,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of deployment condition.
@@ -3332,13 +3234,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta1.ScaleSpec;
 
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      public status?: apps.v1beta1.ScaleStatus;
-
 
       /**
       * Create a apps.v1beta1.Scale object with the given unique name and description.
@@ -3351,7 +3246,6 @@ export namespace apps {
           this.kind = "Scale";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -3430,12 +3324,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta1.StatefulSetSpec;
 
-      /**
-       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
-       * some window of time.
-       */
-      public status?: apps.v1beta1.StatefulSetStatus;
-
 
       /**
       * Create a apps.v1beta1.StatefulSet object with the given unique name and description.
@@ -3448,7 +3336,6 @@ export namespace apps {
           this.kind = "StatefulSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -3471,11 +3358,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of statefulset condition.
@@ -3821,13 +3703,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta2.DaemonSetSpec;
 
-      /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: apps.v1beta2.DaemonSetStatus;
-
 
       /**
       * Create a apps.v1beta2.DaemonSet object with the given unique name and description.
@@ -3840,7 +3715,6 @@ export namespace apps {
           this.kind = "DaemonSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -3863,11 +3737,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of DaemonSet condition.
@@ -4079,11 +3948,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta2.DeploymentSpec;
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      public status?: apps.v1beta2.DeploymentStatus;
-
 
       /**
       * Create a apps.v1beta2.Deployment object with the given unique name and description.
@@ -4096,7 +3960,6 @@ export namespace apps {
           this.kind = "Deployment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -4124,11 +3987,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of deployment condition.
@@ -4346,13 +4204,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta2.ReplicaSetSpec;
 
-      /**
-       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
-       * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: apps.v1beta2.ReplicaSetStatus;
-
 
       /**
       * Create a apps.v1beta2.ReplicaSet object with the given unique name and description.
@@ -4365,7 +4216,6 @@ export namespace apps {
           this.kind = "ReplicaSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -4388,11 +4238,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of replica set condition.
@@ -4623,13 +4468,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta2.ScaleSpec;
 
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      public status?: apps.v1beta2.ScaleStatus;
-
 
       /**
       * Create a apps.v1beta2.Scale object with the given unique name and description.
@@ -4642,7 +4480,6 @@ export namespace apps {
           this.kind = "Scale";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -4721,12 +4558,6 @@ export namespace apps {
        */
       public spec?: apps.v1beta2.StatefulSetSpec;
 
-      /**
-       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
-       * some window of time.
-       */
-      public status?: apps.v1beta2.StatefulSetStatus;
-
 
       /**
       * Create a apps.v1beta2.StatefulSet object with the given unique name and description.
@@ -4739,7 +4570,6 @@ export namespace apps {
           this.kind = "StatefulSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -4762,11 +4592,6 @@ export namespace apps {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of statefulset condition.
@@ -5235,11 +5060,6 @@ export namespace authentication {
        */
       public spec?: authentication.v1.TokenReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request can be authenticated.
-       */
-      public status?: authentication.v1.TokenReviewStatus;
-
 
       /**
       * Create a authentication.v1.TokenReview object with the given unique name and description.
@@ -5252,7 +5072,6 @@ export namespace authentication {
           this.kind = "TokenReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -5370,11 +5189,6 @@ export namespace authentication {
        */
       public spec?: authentication.v1beta1.TokenReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request can be authenticated.
-       */
-      public status?: authentication.v1beta1.TokenReviewStatus;
-
 
       /**
       * Create a authentication.v1beta1.TokenReview object with the given unique name and description.
@@ -5387,7 +5201,6 @@ export namespace authentication {
           this.kind = "TokenReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -5510,11 +5323,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1.SubjectAccessReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      public status?: authorization.v1.SubjectAccessReviewStatus;
-
 
       /**
       * Create a authorization.v1.LocalSubjectAccessReview object with the given unique name and description.
@@ -5527,7 +5335,6 @@ export namespace authorization {
           this.kind = "LocalSubjectAccessReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -5682,11 +5489,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1.SelfSubjectAccessReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      public status?: authorization.v1.SubjectAccessReviewStatus;
-
 
       /**
       * Create a authorization.v1.SelfSubjectAccessReview object with the given unique name and description.
@@ -5699,7 +5501,6 @@ export namespace authorization {
           this.kind = "SelfSubjectAccessReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -5757,11 +5558,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1.SelfSubjectRulesReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates the set of actions a user can perform.
-       */
-      public status?: authorization.v1.SubjectRulesReviewStatus;
-
 
       /**
       * Create a authorization.v1.SelfSubjectRulesReview object with the given unique name and description.
@@ -5774,7 +5570,6 @@ export namespace authorization {
           this.kind = "SelfSubjectRulesReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -5817,11 +5612,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1.SubjectAccessReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      public status?: authorization.v1.SubjectAccessReviewStatus;
-
 
       /**
       * Create a authorization.v1.SubjectAccessReview object with the given unique name and description.
@@ -5834,7 +5624,6 @@ export namespace authorization {
           this.kind = "SubjectAccessReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -5981,11 +5770,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1beta1.SubjectAccessReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      public status?: authorization.v1beta1.SubjectAccessReviewStatus;
-
 
       /**
       * Create a authorization.v1beta1.LocalSubjectAccessReview object with the given unique name and description.
@@ -5998,7 +5782,6 @@ export namespace authorization {
           this.kind = "LocalSubjectAccessReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6153,11 +5936,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1beta1.SelfSubjectAccessReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      public status?: authorization.v1beta1.SubjectAccessReviewStatus;
-
 
       /**
       * Create a authorization.v1beta1.SelfSubjectAccessReview object with the given unique name and description.
@@ -6170,7 +5948,6 @@ export namespace authorization {
           this.kind = "SelfSubjectAccessReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6228,11 +6005,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1beta1.SelfSubjectRulesReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates the set of actions a user can perform.
-       */
-      public status?: authorization.v1beta1.SubjectRulesReviewStatus;
-
 
       /**
       * Create a authorization.v1beta1.SelfSubjectRulesReview object with the given unique name and description.
@@ -6245,7 +6017,6 @@ export namespace authorization {
           this.kind = "SelfSubjectRulesReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6288,11 +6059,6 @@ export namespace authorization {
        */
       public spec?: authorization.v1beta1.SubjectAccessReviewSpec;
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      public status?: authorization.v1beta1.SubjectAccessReviewStatus;
-
 
       /**
       * Create a authorization.v1beta1.SubjectAccessReview object with the given unique name and description.
@@ -6305,7 +6071,6 @@ export namespace authorization {
           this.kind = "SubjectAccessReview";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6480,11 +6245,6 @@ export namespace autoscaling {
        */
       public spec?: autoscaling.v1.HorizontalPodAutoscalerSpec;
 
-      /**
-       * current information about the autoscaler.
-       */
-      public status?: autoscaling.v1.HorizontalPodAutoscalerStatus;
-
 
       /**
       * Create a autoscaling.v1.HorizontalPodAutoscaler object with the given unique name and description.
@@ -6497,7 +6257,6 @@ export namespace autoscaling {
           this.kind = "HorizontalPodAutoscaler";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6644,13 +6403,6 @@ export namespace autoscaling {
        */
       public spec?: autoscaling.v1.ScaleSpec;
 
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      public status?: autoscaling.v1.ScaleStatus;
-
 
       /**
       * Create a autoscaling.v1.Scale object with the given unique name and description.
@@ -6663,7 +6415,6 @@ export namespace autoscaling {
           this.kind = "Scale";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6820,11 +6571,6 @@ export namespace autoscaling {
        */
       public spec?: autoscaling.v2beta1.HorizontalPodAutoscalerSpec;
 
-      /**
-       * status is the current information about the autoscaler.
-       */
-      public status?: autoscaling.v2beta1.HorizontalPodAutoscalerStatus;
-
 
       /**
       * Create a autoscaling.v2beta1.HorizontalPodAutoscaler object with the given unique name and description.
@@ -6837,7 +6583,6 @@ export namespace autoscaling {
           this.kind = "HorizontalPodAutoscaler";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -6861,11 +6606,6 @@ export namespace autoscaling {
        * reason is the reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * status is the status of the condition (True, False, Unknown)
-       */
-      public status?: string;
 
       /**
        * type describes the current condition
@@ -7370,11 +7110,6 @@ export namespace autoscaling {
        */
       public spec?: autoscaling.v2beta2.HorizontalPodAutoscalerSpec;
 
-      /**
-       * status is the current information about the autoscaler.
-       */
-      public status?: autoscaling.v2beta2.HorizontalPodAutoscalerStatus;
-
 
       /**
       * Create a autoscaling.v2beta2.HorizontalPodAutoscaler object with the given unique name and description.
@@ -7387,7 +7122,6 @@ export namespace autoscaling {
           this.kind = "HorizontalPodAutoscaler";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -7411,11 +7145,6 @@ export namespace autoscaling {
        * reason is the reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * status is the status of the condition (True, False, Unknown)
-       */
-      public status?: string;
 
       /**
        * type describes the current condition
@@ -7868,12 +7597,6 @@ export namespace batch {
        */
       public spec?: batch.v1.JobSpec;
 
-      /**
-       * Current status of a job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: batch.v1.JobStatus;
-
 
       /**
       * Create a batch.v1.Job object with the given unique name and description.
@@ -7886,7 +7609,6 @@ export namespace batch {
           this.kind = "Job";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -7914,11 +7636,6 @@ export namespace batch {
        * (brief) reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of job condition, Complete or Failed.
@@ -8124,12 +7841,6 @@ export namespace batch {
        */
       public spec?: batch.v1beta1.CronJobSpec;
 
-      /**
-       * Current status of a cron job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: batch.v1beta1.CronJobStatus;
-
 
       /**
       * Create a batch.v1beta1.CronJob object with the given unique name and description.
@@ -8142,7 +7853,6 @@ export namespace batch {
           this.kind = "CronJob";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -8325,12 +8035,6 @@ export namespace batch {
        */
       public spec?: batch.v2alpha1.CronJobSpec;
 
-      /**
-       * Current status of a cron job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: batch.v2alpha1.CronJobStatus;
-
 
       /**
       * Create a batch.v2alpha1.CronJob object with the given unique name and description.
@@ -8343,7 +8047,6 @@ export namespace batch {
           this.kind = "CronJob";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -8525,11 +8228,6 @@ export namespace certificates {
        */
       public spec?: certificates.v1beta1.CertificateSigningRequestSpec;
 
-      /**
-       * Derived information about the request.
-       */
-      public status?: certificates.v1beta1.CertificateSigningRequestStatus;
-
 
       /**
       * Create a certificates.v1beta1.CertificateSigningRequest object with the given unique name and description.
@@ -8542,7 +8240,6 @@ export namespace certificates {
           this.kind = "CertificateSigningRequest";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -9285,12 +8982,6 @@ export namespace core {
        * Message about the condition for a component. For example, information about a health check.
        */
       public message?: string;
-
-      /**
-       * Status of the condition for a component. Valid values for "Healthy": "True", "False", or
-       * "Unknown".
-       */
-      public status?: string;
 
       /**
        * Type of condition for a component. Valid value: "Healthy"
@@ -11459,12 +11150,6 @@ export namespace core {
        */
       public spec?: core.v1.NamespaceSpec;
 
-      /**
-       * Status describes the current status of a Namespace. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: core.v1.NamespaceStatus;
-
 
       /**
       * Create a core.v1.Namespace object with the given unique name and description.
@@ -11477,7 +11162,6 @@ export namespace core {
           this.kind = "Namespace";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -11589,12 +11273,6 @@ export namespace core {
        */
       public spec?: core.v1.NodeSpec;
 
-      /**
-       * Most recently observed status of the node. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: core.v1.NodeStatus;
-
 
       /**
       * Create a core.v1.Node object with the given unique name and description.
@@ -11607,7 +11285,6 @@ export namespace core {
           this.kind = "Node";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -11678,11 +11355,6 @@ export namespace core {
        * (brief) reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of node condition.
@@ -12154,13 +11826,6 @@ export namespace core {
        */
       public spec?: core.v1.PersistentVolumeSpec;
 
-      /**
-       * Status represents the current information/status for the persistent volume. Populated by
-       * the system. Read-only. More info:
-       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-       */
-      public status?: core.v1.PersistentVolumeStatus;
-
 
       /**
       * Create a core.v1.PersistentVolume object with the given unique name and description.
@@ -12173,7 +11838,6 @@ export namespace core {
           this.kind = "PersistentVolume";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -12210,13 +11874,6 @@ export namespace core {
        */
       public spec?: core.v1.PersistentVolumeClaimSpec;
 
-      /**
-       * Status represents the current information/status of a persistent volume claim. Read-only.
-       * More info:
-       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-       */
-      public status?: core.v1.PersistentVolumeClaimStatus;
-
 
       /**
       * Create a core.v1.PersistentVolumeClaim object with the given unique name and description.
@@ -12229,7 +11886,6 @@ export namespace core {
           this.kind = "PersistentVolumeClaim";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -12259,9 +11915,6 @@ export namespace core {
        * persistent volume is being resized.
        */
       public reason?: string;
-
-      
-      public status?: string;
 
       
       public type?: string;
@@ -12734,13 +12387,6 @@ export namespace core {
        */
       public spec?: core.v1.PodSpec;
 
-      /**
-       * Most recently observed status of the pod. This data may not be up to date. Populated by the
-       * system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: core.v1.PodStatus;
-
 
       /**
       * Create a core.v1.Pod object with the given unique name and description.
@@ -12753,7 +12399,6 @@ export namespace core {
           this.kind = "Pod";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -12868,12 +12513,6 @@ export namespace core {
        * Unique, one-word, CamelCase reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown. More info:
-       * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-       */
-      public status?: string;
 
       /**
        * Type is the type of the condition. More info:
@@ -13793,13 +13432,6 @@ export namespace core {
        */
       public spec?: core.v1.ReplicationControllerSpec;
 
-      /**
-       * Status is the most recently observed status of the replication controller. This data may be
-       * out of date by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: core.v1.ReplicationControllerStatus;
-
 
       /**
       * Create a core.v1.ReplicationController object with the given unique name and description.
@@ -13812,7 +13444,6 @@ export namespace core {
           this.kind = "ReplicationController";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -13836,11 +13467,6 @@ export namespace core {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of replication controller condition.
@@ -14030,12 +13656,6 @@ export namespace core {
        */
       public spec?: core.v1.ResourceQuotaSpec;
 
-      /**
-       * Status defines the actual enforced quota and its current usage.
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: core.v1.ResourceQuotaStatus;
-
 
       /**
       * Create a core.v1.ResourceQuota object with the given unique name and description.
@@ -14048,7 +13668,6 @@ export namespace core {
           this.kind = "ResourceQuota";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -14711,12 +14330,6 @@ export namespace core {
        */
       public spec?: core.v1.ServiceSpec;
 
-      /**
-       * Most recently observed status of the service. Populated by the system. Read-only. More
-       * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: core.v1.ServiceStatus;
-
 
       /**
       * Create a core.v1.Service object with the given unique name and description.
@@ -14729,7 +14342,6 @@ export namespace core {
           this.kind = "Service";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -15942,13 +15554,6 @@ export namespace extensions {
        */
       public spec?: extensions.v1beta1.DaemonSetSpec;
 
-      /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: extensions.v1beta1.DaemonSetStatus;
-
 
       /**
       * Create a extensions.v1beta1.DaemonSet object with the given unique name and description.
@@ -15961,7 +15566,6 @@ export namespace extensions {
           this.kind = "DaemonSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -15984,11 +15588,6 @@ export namespace extensions {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of DaemonSet condition.
@@ -16204,11 +15803,6 @@ export namespace extensions {
        */
       public spec?: extensions.v1beta1.DeploymentSpec;
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      public status?: extensions.v1beta1.DeploymentStatus;
-
 
       /**
       * Create a extensions.v1beta1.Deployment object with the given unique name and description.
@@ -16221,7 +15815,6 @@ export namespace extensions {
           this.kind = "Deployment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -16249,11 +15842,6 @@ export namespace extensions {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of deployment condition.
@@ -16630,12 +16218,6 @@ export namespace extensions {
        */
       public spec?: extensions.v1beta1.IngressSpec;
 
-      /**
-       * Status is the current state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: extensions.v1beta1.IngressStatus;
-
 
       /**
       * Create a extensions.v1beta1.Ingress object with the given unique name and description.
@@ -16648,7 +16230,6 @@ export namespace extensions {
           this.kind = "Ingress";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -17342,13 +16923,6 @@ export namespace extensions {
        */
       public spec?: extensions.v1beta1.ReplicaSetSpec;
 
-      /**
-       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
-       * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: extensions.v1beta1.ReplicaSetStatus;
-
 
       /**
       * Create a extensions.v1beta1.ReplicaSet object with the given unique name and description.
@@ -17361,7 +16935,6 @@ export namespace extensions {
           this.kind = "ReplicaSet";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -17384,11 +16957,6 @@ export namespace extensions {
        * The reason for the condition's last transition.
        */
       public reason?: string;
-
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      public status?: string;
 
       /**
        * Type of replica set condition.
@@ -17674,13 +17242,6 @@ export namespace extensions {
        */
       public spec?: extensions.v1beta1.ScaleSpec;
 
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      public status?: extensions.v1beta1.ScaleStatus;
-
 
       /**
       * Create a extensions.v1beta1.Scale object with the given unique name and description.
@@ -17693,7 +17254,6 @@ export namespace extensions {
           this.kind = "Scale";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -18459,12 +18019,6 @@ export namespace meta {
        */
       public reason?: string;
 
-      /**
-       * Status of the operation. One of: "Success" or "Failure". More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      public status?: string;
-
 
       /**
       * Create a meta.v1.Status object with the given unique name and description.
@@ -18480,7 +18034,6 @@ export namespace meta {
           this.message = desc && desc.message || undefined;
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.reason = desc && desc.reason || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -19118,11 +18671,6 @@ export namespace policy {
        */
       public spec?: policy.v1beta1.PodDisruptionBudgetSpec;
 
-      /**
-       * Most recently observed status of the PodDisruptionBudget.
-       */
-      public status?: policy.v1beta1.PodDisruptionBudgetStatus;
-
 
       /**
       * Create a policy.v1beta1.PodDisruptionBudget object with the given unique name and description.
@@ -19135,7 +18683,6 @@ export namespace policy {
           this.kind = "PodDisruptionBudget";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -21660,12 +21207,6 @@ export namespace storage {
        */
       public spec?: storage.v1.VolumeAttachmentSpec;
 
-      /**
-       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
-       * detach operation, i.e. the external-attacher.
-       */
-      public status?: storage.v1.VolumeAttachmentStatus;
-
 
       /**
       * Create a storage.v1.VolumeAttachment object with the given unique name and description.
@@ -21678,7 +21219,6 @@ export namespace storage {
           this.kind = "VolumeAttachment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -21855,12 +21395,6 @@ export namespace storage {
        */
       public spec?: storage.v1alpha1.VolumeAttachmentSpec;
 
-      /**
-       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
-       * detach operation, i.e. the external-attacher.
-       */
-      public status?: storage.v1alpha1.VolumeAttachmentStatus;
-
 
       /**
       * Create a storage.v1alpha1.VolumeAttachment object with the given unique name and description.
@@ -21873,7 +21407,6 @@ export namespace storage {
           this.kind = "VolumeAttachment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }
@@ -22193,12 +21726,6 @@ export namespace storage {
        */
       public spec?: storage.v1beta1.VolumeAttachmentSpec;
 
-      /**
-       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
-       * detach operation, i.e. the external-attacher.
-       */
-      public status?: storage.v1beta1.VolumeAttachmentStatus;
-
 
       /**
       * Create a storage.v1beta1.VolumeAttachment object with the given unique name and description.
@@ -22211,7 +21738,6 @@ export namespace storage {
           this.kind = "VolumeAttachment";
           this.metadata = Object.assign({}, desc && desc.metadata || {}, { name });
           this.spec = desc && desc.spec || undefined;
-          this.status = desc && desc.status || undefined;
           Object.assign(this.metadata, { name });
       }
     }

@@ -588,11 +588,6 @@ export namespace apiextensions {
       
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status indicates the actual state of the CustomResourceDefinition
-       */
-      status?: apiextensions.v1beta1.CustomResourceDefinitionStatus
-
     }
 
     export function isCustomResourceDefinition(o: any): o is CustomResourceDefinition {
@@ -603,11 +598,6 @@ export namespace apiextensions {
      * CustomResourceDefinitionCondition contains details for the current condition of this pod.
      */
     export interface CustomResourceDefinitionCondition {
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type is the type of the condition.
        */
@@ -896,11 +886,6 @@ export namespace apiextensions {
        */
       scale?: apiextensions.v1beta1.CustomResourceSubresourceScale
 
-      /**
-       * Status denotes the status subresource for CustomResources
-       */
-      status?: any
-
     }
 
 
@@ -1148,11 +1133,6 @@ export namespace apiregistration {
        */
       spec?: apiregistration.v1.APIServiceSpec
 
-      /**
-       * Status contains derived information about an API server
-       */
-      status?: apiregistration.v1.APIServiceStatus
-
     }
 
     export function isAPIService(o: any): o is APIService {
@@ -1161,11 +1141,6 @@ export namespace apiregistration {
 
     
     export interface APIServiceCondition {
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type is the type of the condition.
        */
@@ -1345,11 +1320,6 @@ export namespace apiregistration {
        */
       spec?: apiregistration.v1beta1.APIServiceSpec
 
-      /**
-       * Status contains derived information about an API server
-       */
-      status?: apiregistration.v1beta1.APIServiceStatus
-
     }
 
     export function isAPIService(o: any): o is APIService {
@@ -1358,11 +1328,6 @@ export namespace apiregistration {
 
     
     export interface APIServiceCondition {
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type is the type of the condition.
        */
@@ -1634,13 +1599,6 @@ export namespace apps {
        */
       spec?: apps.v1.DaemonSetSpec
 
-      /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: apps.v1.DaemonSetStatus
-
     }
 
     export function isDaemonSet(o: any): o is DaemonSet {
@@ -1651,11 +1609,6 @@ export namespace apps {
      * DaemonSetCondition describes the state of a DaemonSet at a certain point.
      */
     export interface DaemonSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of DaemonSet condition.
        */
@@ -1869,11 +1822,6 @@ export namespace apps {
        */
       spec?: apps.v1.DeploymentSpec
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      status?: apps.v1.DeploymentStatus
-
     }
 
     export function isDeployment(o: any): o is Deployment {
@@ -1884,11 +1832,6 @@ export namespace apps {
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
     export interface DeploymentCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of deployment condition.
        */
@@ -2113,13 +2056,6 @@ export namespace apps {
        */
       spec?: apps.v1.ReplicaSetSpec
 
-      /**
-       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
-       * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: apps.v1.ReplicaSetStatus
-
     }
 
     export function isReplicaSet(o: any): o is ReplicaSet {
@@ -2130,11 +2066,6 @@ export namespace apps {
      * ReplicaSetCondition describes the state of a replica set at a certain point.
      */
     export interface ReplicaSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of replica set condition.
        */
@@ -2369,12 +2300,6 @@ export namespace apps {
        */
       spec?: apps.v1.StatefulSetSpec
 
-      /**
-       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
-       * some window of time.
-       */
-      status?: apps.v1.StatefulSetStatus
-
     }
 
     export function isStatefulSet(o: any): o is StatefulSet {
@@ -2385,11 +2310,6 @@ export namespace apps {
      * StatefulSetCondition describes the state of a statefulset at a certain point.
      */
     export interface StatefulSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of statefulset condition.
        */
@@ -2717,11 +2637,6 @@ export namespace apps {
        */
       spec?: apps.v1beta1.DeploymentSpec
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      status?: apps.v1beta1.DeploymentStatus
-
     }
 
     export function isDeployment(o: any): o is Deployment {
@@ -2732,11 +2647,6 @@ export namespace apps {
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
     export interface DeploymentCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of deployment condition.
        */
@@ -3063,13 +2973,6 @@ export namespace apps {
        */
       spec?: apps.v1beta1.ScaleSpec
 
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      status?: apps.v1beta1.ScaleStatus
-
     }
 
     export function isScale(o: any): o is Scale {
@@ -3150,12 +3053,6 @@ export namespace apps {
        */
       spec?: apps.v1beta1.StatefulSetSpec
 
-      /**
-       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
-       * some window of time.
-       */
-      status?: apps.v1beta1.StatefulSetStatus
-
     }
 
     export function isStatefulSet(o: any): o is StatefulSet {
@@ -3166,11 +3063,6 @@ export namespace apps {
      * StatefulSetCondition describes the state of a statefulset at a certain point.
      */
     export interface StatefulSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of statefulset condition.
        */
@@ -3499,13 +3391,6 @@ export namespace apps {
        */
       spec?: apps.v1beta2.DaemonSetSpec
 
-      /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: apps.v1beta2.DaemonSetStatus
-
     }
 
     export function isDaemonSet(o: any): o is DaemonSet {
@@ -3516,11 +3401,6 @@ export namespace apps {
      * DaemonSetCondition describes the state of a DaemonSet at a certain point.
      */
     export interface DaemonSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of DaemonSet condition.
        */
@@ -3736,11 +3616,6 @@ export namespace apps {
        */
       spec?: apps.v1beta2.DeploymentSpec
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      status?: apps.v1beta2.DeploymentStatus
-
     }
 
     export function isDeployment(o: any): o is Deployment {
@@ -3751,11 +3626,6 @@ export namespace apps {
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
     export interface DeploymentCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of deployment condition.
        */
@@ -3982,13 +3852,6 @@ export namespace apps {
        */
       spec?: apps.v1beta2.ReplicaSetSpec
 
-      /**
-       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
-       * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: apps.v1beta2.ReplicaSetStatus
-
     }
 
     export function isReplicaSet(o: any): o is ReplicaSet {
@@ -3999,11 +3862,6 @@ export namespace apps {
      * ReplicaSetCondition describes the state of a replica set at a certain point.
      */
     export interface ReplicaSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of replica set condition.
        */
@@ -4238,13 +4096,6 @@ export namespace apps {
        */
       spec?: apps.v1beta2.ScaleSpec
 
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      status?: apps.v1beta2.ScaleStatus
-
     }
 
     export function isScale(o: any): o is Scale {
@@ -4325,12 +4176,6 @@ export namespace apps {
        */
       spec?: apps.v1beta2.StatefulSetSpec
 
-      /**
-       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
-       * some window of time.
-       */
-      status?: apps.v1beta2.StatefulSetStatus
-
     }
 
     export function isStatefulSet(o: any): o is StatefulSet {
@@ -4341,11 +4186,6 @@ export namespace apps {
      * StatefulSetCondition describes the state of a statefulset at a certain point.
      */
     export interface StatefulSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of statefulset condition.
        */
@@ -4798,11 +4638,6 @@ export namespace authentication {
       
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status is filled in by the server and indicates whether the request can be authenticated.
-       */
-      status?: authentication.v1.TokenReviewStatus
-
     }
 
     export function isTokenReview(o: any): o is TokenReview {
@@ -4921,11 +4756,6 @@ export namespace authentication {
 
       
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status is filled in by the server and indicates whether the request can be authenticated.
-       */
-      status?: authentication.v1beta1.TokenReviewStatus
 
     }
 
@@ -5050,11 +4880,6 @@ export namespace authorization {
 
       
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      status?: authorization.v1.SubjectAccessReviewStatus
 
     }
 
@@ -5212,11 +5037,6 @@ export namespace authorization {
       
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      status?: authorization.v1.SubjectAccessReviewStatus
-
     }
 
     export function isSelfSubjectAccessReview(o: any): o is SelfSubjectAccessReview {
@@ -5276,11 +5096,6 @@ export namespace authorization {
       
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status is filled in by the server and indicates the set of actions a user can perform.
-       */
-      status?: authorization.v1.SubjectRulesReviewStatus
-
     }
 
     export function isSelfSubjectRulesReview(o: any): o is SelfSubjectRulesReview {
@@ -5324,11 +5139,6 @@ export namespace authorization {
 
       
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      status?: authorization.v1.SubjectAccessReviewStatus
 
     }
 
@@ -5477,11 +5287,6 @@ export namespace authorization {
 
       
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      status?: authorization.v1beta1.SubjectAccessReviewStatus
 
     }
 
@@ -5639,11 +5444,6 @@ export namespace authorization {
       
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      status?: authorization.v1beta1.SubjectAccessReviewStatus
-
     }
 
     export function isSelfSubjectAccessReview(o: any): o is SelfSubjectAccessReview {
@@ -5703,11 +5503,6 @@ export namespace authorization {
       
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status is filled in by the server and indicates the set of actions a user can perform.
-       */
-      status?: authorization.v1beta1.SubjectRulesReviewStatus
-
     }
 
     export function isSelfSubjectRulesReview(o: any): o is SelfSubjectRulesReview {
@@ -5751,11 +5546,6 @@ export namespace authorization {
 
       
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status is filled in by the server and indicates whether the request is allowed or not
-       */
-      status?: authorization.v1beta1.SubjectAccessReviewStatus
 
     }
 
@@ -5936,11 +5726,6 @@ export namespace autoscaling {
        */
       spec?: autoscaling.v1.HorizontalPodAutoscalerSpec
 
-      /**
-       * current information about the autoscaler.
-       */
-      status?: autoscaling.v1.HorizontalPodAutoscalerStatus
-
     }
 
     export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
@@ -6078,13 +5863,6 @@ export namespace autoscaling {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
       spec?: autoscaling.v1.ScaleSpec
-
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      status?: autoscaling.v1.ScaleStatus
 
     }
 
@@ -6247,11 +6025,6 @@ export namespace autoscaling {
        */
       spec?: autoscaling.v2beta1.HorizontalPodAutoscalerSpec
 
-      /**
-       * status is the current information about the autoscaler.
-       */
-      status?: autoscaling.v2beta1.HorizontalPodAutoscalerStatus
-
     }
 
     export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
@@ -6263,11 +6036,6 @@ export namespace autoscaling {
      * certain point.
      */
     export interface HorizontalPodAutoscalerCondition {
-      /**
-       * status is the status of the condition (True, False, Unknown)
-       */
-      status: string
-
       /**
        * type describes the current condition
        */
@@ -6779,11 +6547,6 @@ export namespace autoscaling {
        */
       spec?: autoscaling.v2beta2.HorizontalPodAutoscalerSpec
 
-      /**
-       * status is the current information about the autoscaler.
-       */
-      status?: autoscaling.v2beta2.HorizontalPodAutoscalerStatus
-
     }
 
     export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
@@ -6795,11 +6558,6 @@ export namespace autoscaling {
      * certain point.
      */
     export interface HorizontalPodAutoscalerCondition {
-      /**
-       * status is the status of the condition (True, False, Unknown)
-       */
-      status: string
-
       /**
        * type describes the current condition
        */
@@ -7256,12 +7014,6 @@ export namespace batch {
        */
       spec?: batch.v1.JobSpec
 
-      /**
-       * Current status of a job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: batch.v1.JobStatus
-
     }
 
     export function isJob(o: any): o is Job {
@@ -7272,11 +7024,6 @@ export namespace batch {
      * JobCondition describes current state of a job.
      */
     export interface JobCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of job condition, Complete or Failed.
        */
@@ -7491,12 +7238,6 @@ export namespace batch {
        */
       spec?: batch.v1beta1.CronJobSpec
 
-      /**
-       * Current status of a cron job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: batch.v1beta1.CronJobStatus
-
     }
 
     export function isCronJob(o: any): o is CronJob {
@@ -7660,12 +7401,6 @@ export namespace batch {
        */
       spec?: batch.v2alpha1.CronJobSpec
 
-      /**
-       * Current status of a cron job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: batch.v2alpha1.CronJobStatus
-
     }
 
     export function isCronJob(o: any): o is CronJob {
@@ -7827,11 +7562,6 @@ export namespace certificates {
        * The certificate request itself and any additional information.
        */
       spec?: certificates.v1beta1.CertificateSigningRequestSpec
-
-      /**
-       * Derived information about the request.
-       */
-      status?: certificates.v1beta1.CertificateSigningRequestStatus
 
     }
 
@@ -8528,12 +8258,6 @@ export namespace core {
      * Information about the condition of a component.
      */
     export interface ComponentCondition {
-      /**
-       * Status of the condition for a component. Valid values for "Healthy": "True", "False", or
-       * "Unknown".
-       */
-      status: string
-
       /**
        * Type of condition for a component. Valid value: "Healthy"
        */
@@ -10597,12 +10321,6 @@ export namespace core {
        */
       spec?: core.v1.NamespaceSpec
 
-      /**
-       * Status describes the current status of a Namespace. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: core.v1.NamespaceStatus
-
     }
 
     export function isNamespace(o: any): o is Namespace {
@@ -10706,12 +10424,6 @@ export namespace core {
        */
       spec?: core.v1.NodeSpec
 
-      /**
-       * Most recently observed status of the node. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: core.v1.NodeStatus
-
     }
 
     export function isNode(o: any): o is Node {
@@ -10765,11 +10477,6 @@ export namespace core {
      * NodeCondition contains condition information for a node.
      */
     export interface NodeCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of node condition.
        */
@@ -11256,13 +10963,6 @@ export namespace core {
        */
       spec?: core.v1.PersistentVolumeSpec
 
-      /**
-       * Status represents the current information/status for the persistent volume. Populated by
-       * the system. Read-only. More info:
-       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-       */
-      status?: core.v1.PersistentVolumeStatus
-
     }
 
     export function isPersistentVolume(o: any): o is PersistentVolume {
@@ -11301,13 +11001,6 @@ export namespace core {
        */
       spec?: core.v1.PersistentVolumeClaimSpec
 
-      /**
-       * Status represents the current information/status of a persistent volume claim. Read-only.
-       * More info:
-       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-       */
-      status?: core.v1.PersistentVolumeClaimStatus
-
     }
 
     export function isPersistentVolumeClaim(o: any): o is PersistentVolumeClaim {
@@ -11318,9 +11011,6 @@ export namespace core {
      * PersistentVolumeClaimCondition contails details about state of pvc
      */
     export interface PersistentVolumeClaimCondition {
-      
-      status: string
-
       
       type: string
 
@@ -11794,13 +11484,6 @@ export namespace core {
        */
       spec?: core.v1.PodSpec
 
-      /**
-       * Most recently observed status of the pod. This data may not be up to date. Populated by the
-       * system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: core.v1.PodStatus
-
     }
 
     export function isPod(o: any): o is Pod {
@@ -11898,12 +11581,6 @@ export namespace core {
      * PodCondition contains details for the current condition of this pod.
      */
     export interface PodCondition {
-      /**
-       * Status is the status of the condition. Can be True, False, Unknown. More info:
-       * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-       */
-      status: string
-
       /**
        * Type is the type of the condition. More info:
        * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -12801,13 +12478,6 @@ export namespace core {
        */
       spec?: core.v1.ReplicationControllerSpec
 
-      /**
-       * Status is the most recently observed status of the replication controller. This data may be
-       * out of date by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: core.v1.ReplicationControllerStatus
-
     }
 
     export function isReplicationController(o: any): o is ReplicationController {
@@ -12819,11 +12489,6 @@ export namespace core {
      * point.
      */
     export interface ReplicationControllerCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of replication controller condition.
        */
@@ -13016,12 +12681,6 @@ export namespace core {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
       spec?: core.v1.ResourceQuotaSpec
-
-      /**
-       * Status defines the actual enforced quota and its current usage.
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: core.v1.ResourceQuotaStatus
 
     }
 
@@ -13654,12 +13313,6 @@ export namespace core {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
       spec?: core.v1.ServiceSpec
-
-      /**
-       * Most recently observed status of the service. Populated by the system. Read-only. More
-       * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: core.v1.ServiceStatus
 
     }
 
@@ -14810,13 +14463,6 @@ export namespace extensions {
        */
       spec?: extensions.v1beta1.DaemonSetSpec
 
-      /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: extensions.v1beta1.DaemonSetStatus
-
     }
 
     export function isDaemonSet(o: any): o is DaemonSet {
@@ -14827,11 +14473,6 @@ export namespace extensions {
      * DaemonSetCondition describes the state of a DaemonSet at a certain point.
      */
     export interface DaemonSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of DaemonSet condition.
        */
@@ -15051,11 +14692,6 @@ export namespace extensions {
        */
       spec?: extensions.v1beta1.DeploymentSpec
 
-      /**
-       * Most recently observed status of the Deployment.
-       */
-      status?: extensions.v1beta1.DeploymentStatus
-
     }
 
     export function isDeployment(o: any): o is Deployment {
@@ -15066,11 +14702,6 @@ export namespace extensions {
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
     export interface DeploymentCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of deployment condition.
        */
@@ -15458,12 +15089,6 @@ export namespace extensions {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
       spec?: extensions.v1beta1.IngressSpec
-
-      /**
-       * Status is the current state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: extensions.v1beta1.IngressStatus
 
     }
 
@@ -16110,13 +15735,6 @@ export namespace extensions {
        */
       spec?: extensions.v1beta1.ReplicaSetSpec
 
-      /**
-       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
-       * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: extensions.v1beta1.ReplicaSetStatus
-
     }
 
     export function isReplicaSet(o: any): o is ReplicaSet {
@@ -16127,11 +15745,6 @@ export namespace extensions {
      * ReplicaSetCondition describes the state of a replica set at a certain point.
      */
     export interface ReplicaSetCondition {
-      /**
-       * Status of the condition, one of True, False, Unknown.
-       */
-      status: string
-
       /**
        * Type of replica set condition.
        */
@@ -16420,13 +16033,6 @@ export namespace extensions {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
       spec?: extensions.v1beta1.ScaleSpec
-
-      /**
-       * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-       * Read-only.
-       */
-      status?: extensions.v1beta1.ScaleStatus
 
     }
 
@@ -17213,12 +16819,6 @@ export namespace meta {
        */
       reason?: string
 
-      /**
-       * Status of the operation. One of: "Success" or "Failure". More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-       */
-      status?: string
-
     }
 
     export function isStatus(o: any): o is Status {
@@ -17827,11 +17427,6 @@ export namespace policy {
        * Specification of the desired behavior of the PodDisruptionBudget.
        */
       spec?: policy.v1beta1.PodDisruptionBudgetSpec
-
-      /**
-       * Most recently observed status of the PodDisruptionBudget.
-       */
-      status?: policy.v1beta1.PodDisruptionBudgetStatus
 
     }
 
@@ -19993,12 +19588,6 @@ export namespace storage {
        */
       metadata?: meta.v1.ObjectMeta
 
-      /**
-       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
-       * detach operation, i.e. the external-attacher.
-       */
-      status?: storage.v1.VolumeAttachmentStatus
-
     }
 
     export function isVolumeAttachment(o: any): o is VolumeAttachment {
@@ -20166,12 +19755,6 @@ export namespace storage {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
-       * detach operation, i.e. the external-attacher.
-       */
-      status?: storage.v1alpha1.VolumeAttachmentStatus
 
     }
 
@@ -20457,12 +20040,6 @@ export namespace storage {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       metadata?: meta.v1.ObjectMeta
-
-      /**
-       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
-       * detach operation, i.e. the external-attacher.
-       */
-      status?: storage.v1beta1.VolumeAttachmentStatus
 
     }
 
