@@ -1,0 +1,19 @@
+{
+  "name": "guestbook-ts",
+  "version": "1.0.0",
+  "description": "Kubernetes stateless example",
+  "main": "guestbook.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "kubernetes",
+    "jk",
+    "example"
+  ],
+  "author": "The jk Authors",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^3.2.2"
+  }
+}
