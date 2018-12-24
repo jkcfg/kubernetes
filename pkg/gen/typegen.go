@@ -129,6 +129,7 @@ type KindConfig struct {
 	properties         []*Property
 	requiredProperties []*Property
 	optionalProperties []*Property
+	hasMeta            bool
 
 	gvk           *schema.GroupVersionKind // Used for sorting.
 	apiVersion    string
@@ -156,6 +157,9 @@ func (kc *KindConfig) RequiredProperties() []*Property { return kc.requiredPrope
 // (i.e., things that we will want to `.` into, like `thing.apiVersion`, `thing.kind`,
 // `thing.metadata`, etc.).
 func (kc *KindConfig) OptionalProperties() []*Property { return kc.optionalProperties }
+
+// HasMeta encodes if the object has a Meta field.
+func (kc *KindConfig) HasMeta() bool { return kc.hasMeta }
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
@@ -253,11 +257,6 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 }
 
 func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
-	refPrefix := ""
-	if opts.generatorType == api {
-		refPrefix = "outputApi"
-	}
-
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
@@ -307,10 +306,7 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	}
 
 	gvk := gvkFromRef(ref)
-	if refPrefix == "" {
-		return fmt.Sprintf("%s.%s.%s", gvk.Group, gvk.Version, gvk.Kind)
-	}
-	return fmt.Sprintf("%s.%s.%s.%s", refPrefix, gvk.Group, gvk.Version, gvk.Kind)
+	return fmt.Sprintf("%s.%s.%s", gvk.Group, gvk.Version, gvk.Kind)
 }
 
 func makeType(prop map[string]interface{}, opts groupOpts) string {
@@ -419,12 +415,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
 					// Create a default value for the field.
-					defaultValue := fmt.Sprintf("args && args.%s || undefined", propName)
+					defaultValue := fmt.Sprintf("desc && desc.%s || undefined", propName)
 					switch propName {
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+					case "metadata":
+						defaultValue = "Object.assign({}, desc && desc.metadata || {}, { name })"
 					}
 
 					prefix := "      "
@@ -470,11 +468,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			}
 
 			props := d.data["properties"].(map[string]interface{})
-			_, kindExists := props["kind"]
 			_, apiVersionExists := props["apiVersion"]
-			if opts.generatorType == api && (!kindExists || !apiVersionExists) {
-				return linq.From([]*KindConfig{})
-			}
+			_, hasMeta := props["metadata"]
 
 			var typeGuard string
 			if apiVersionExists {
@@ -493,6 +488,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,
+					hasMeta:            hasMeta,
 					gvk:                &d.gvk,
 					apiVersion:         fqGroupVersion,
 					rawAPIVersion:      defaultGroupVersion,
