@@ -2,6 +2,10 @@
   "name": "guestbook-ts",
   "version": "1.0.0",
   "description": "Kubernetes stateless example",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkcfg/kubernetes.git"
+  },
   "main": "guestbook.ts",
   "scripts": {
     "build": "tsc"
