@@ -11,6 +11,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "std": ["node_modules/@jkcfg/std"]
+    }
   }
 }
