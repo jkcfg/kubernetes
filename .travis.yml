@@ -5,5 +5,15 @@ cache: npm
 
 jobs:
   include:
-    - script: npm run lint
-    - script: npm test
+    - stage: Tests
+      name: lint
+      script: npm run lint
+
+    - name: unit tests
+      script: npm test
+
+    - stage: Deploy
+      script:
+        - make gen dist
+        - cd dist && npm publish
+      if: tag IS present
