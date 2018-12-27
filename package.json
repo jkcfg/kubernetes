@@ -13,9 +13,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
-    "rollup": "^0.67.0",
-    "rollup-plugin-includepaths": "^0.2.3",
-    "terser": "^3.10.11"
+    "typescript": "^3.2.2"
   },
   "homepage": "https://github.com/jkcfg/kubernetes#readme",
   "keywords": [
@@ -24,14 +22,13 @@
     "generation"
   ],
   "license": "Apache-2.0",
-  "main": "lib/kubernetes.mjs",
-  "module": "src/kubernetes.js",
+  "module": "kubernetes.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jkcfg/kubernetes.git"
   },
   "scripts": {
-    "build": "rollup -c | terser --mangle --module > lib/kubernetes.mjs",
+    "build": "make",
     "lint": "eslint src",
     "test": "jest"
   },
