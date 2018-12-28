@@ -3,7 +3,7 @@
 all: gen
 
 gen:
-	go run ./cmd/apigen cmd/apigen/specs/swagger-v1.13.0.json cmd/apigen/templates ./src/
+	go run ./cmd/apigen/main.go cmd/apigen/specs/swagger-v1.13.0.json cmd/apigen/templates ./src/
 
 dist: src/api.ts
 	npx tsc
