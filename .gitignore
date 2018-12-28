@@ -1,5 +1,7 @@
 node_modules
 /dist
 /lib
+/src/api.ts
+/src/shapes.ts
 
 /examples/*/package-lock.json
