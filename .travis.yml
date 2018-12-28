@@ -3,6 +3,10 @@ node_js:
   - "node" # always use the latest; we are only using it as a test runner for now
 cache: npm
 
+env:
+  global:
+    - GOVERSION=1.11.2
+
 jobs:
   include:
     - stage: Tests
@@ -14,6 +18,12 @@ jobs:
 
     - stage: Deploy
       script:
+        # go
+        - (cd ~ && curl -fsSLO https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz)
+        - mkdir ~/go-${GOVERSION} && tar xf ~/go${GOVERSION}.linux-amd64.tar.gz -C ~/go-${GOVERSION} --strip-components 1
+        - export PATH=~/go-${GOVERSION}/bin:~/go/bin:$PATH
+
+        # build and publish
         - make gen dist
         - cd dist && npm publish
       if: tag IS present
