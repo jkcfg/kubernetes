@@ -5,7 +5,7 @@ cache: npm
 
 env:
   global:
-    - GOVERSION=1.11.2
+    - GOVERSION=1.11.1
 
 jobs:
   include:
