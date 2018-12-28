@@ -21,6 +21,7 @@ jobs:
         # go
         - (cd ~ && curl -fsSLO https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz)
         - mkdir ~/go-${GOVERSION} && tar xf ~/go${GOVERSION}.linux-amd64.tar.gz -C ~/go-${GOVERSION} --strip-components 1
+        - unset GOPATH GOROOT
         - export PATH=~/go-${GOVERSION}/bin:~/go/bin:$PATH
 
         # build and publish
