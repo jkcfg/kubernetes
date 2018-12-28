@@ -5,7 +5,7 @@ cache: npm
 
 env:
   global:
-    - GOVERSION=1.11.1
+    - GOVERSION=1.11.2
 
 jobs:
   include:
@@ -26,5 +26,5 @@ jobs:
 
         # build and publish
         - make gen dist
-        - cd dist && npm publish --access=public
+        - cd dist && npm publish
       if: tag IS present
