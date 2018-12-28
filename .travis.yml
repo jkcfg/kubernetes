@@ -26,5 +26,5 @@ jobs:
 
         # build and publish
         - make gen dist
-        - cd dist && npm publish
+        - cd dist && npm publish --access=public
       if: tag IS present
