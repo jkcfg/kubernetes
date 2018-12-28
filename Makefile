@@ -8,7 +8,7 @@ gen:
 dist: src/api.ts
 	npx tsc
 	npx tsc -d --emitDeclarationOnly --allowJs false
-	cp LICENSE package.json .npmrc $@
+	cp README.md LICENSE package.json .npmrc $@
 
 clean:
 	rm -rf dist
