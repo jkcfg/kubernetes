@@ -1,4 +1,4 @@
-import { patchResource } from '../src/cons/transforms';
+import { patchResource } from '../src/overlay/transforms';
 
 // for the match predicate
 const template = {

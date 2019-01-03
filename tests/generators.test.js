@@ -1,4 +1,4 @@
-import { generateConfigMap } from '../src/cons/generators';
+import { generateConfigMap } from '../src/overlay/generators';
 import { ConfigMap } from '../src/kubernetes';
 import { fs } from './mock';
 

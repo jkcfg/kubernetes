@@ -1,4 +1,4 @@
-import { dataFromFiles, dataFromDir } from '../src/cons/data';
+import { dataFromFiles, dataFromDir } from '../src/overlay/data';
 
 const foo = `---
 conf:

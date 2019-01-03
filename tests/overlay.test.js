@@ -1,4 +1,4 @@
-import overlay from '../src/cons/overlay';
+import overlay from '../src/overlay';
 import { fs, Encoding } from './mock';
 
 test('trivial overlay: no bases, resources, patches', () => {
