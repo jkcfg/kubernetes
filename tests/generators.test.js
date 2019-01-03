@@ -24,8 +24,8 @@ test('files and literals', () => {
     literals: ['some.property=some.value'],
   };
   expect.assertions(1);
-  gen(conf).then(v => {
-    return expect(v).toEqual(new ConfigMap(undefined, 'foo-conf', {
+  return gen(conf).then((v) => {
+    expect(v).toEqual(new ConfigMap(undefined, 'foo-conf', {
       'foo.yaml': 'foo: bar',
       'some.property': 'some.value',
     }));

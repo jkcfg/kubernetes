@@ -1,4 +1,5 @@
 import { dataFromFiles } from './data';
+import { basename } from '../path';
 import { ConfigMap } from '../kubernetes';
 
 const generateConfigMap = readStr => async function generate(config) {
@@ -16,7 +17,7 @@ const generateConfigMap = readStr => async function generate(config) {
   const fileContents = dataFromFiles(readStr, files);
   return fileContents.then((d) => {
     d.forEach((v, k) => {
-      data[k] = v
+      data[basename(k)] = v
     });
     return new ConfigMap(undefined, name, data);
   });
