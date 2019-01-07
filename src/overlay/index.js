@@ -26,7 +26,7 @@
 // Easy peasy!
 
 import { patchResource } from './transforms';
-import { generateConfigMap } from './generators';
+import { generateConfigMap, generateSecret } from './generators';
 
 const flatten = array => [].concat(...array);
 const pipeline = (...fns) => v => fns.reduce((acc, val) => val(acc), v);
@@ -37,11 +37,13 @@ const pipeline = (...fns) => v => fns.reduce((acc, val) => val(acc), v);
 const overlay = ({ read, Encoding }) => async function assemble(path, config) {
   const readObj = f => read(`${path}/${f}`, { encoding: Encoding.JSON });
   const readStr = f => read(`${path}/${f}`, { encoding: Encoding.String });
+  const readBytes = f => read(`${path}/${f}`, { encoding: Encoding.Bytes });
   const {
     resources: resourceFiles = [],
     bases: baseFiles = [],
     patches: patchFiles = [],
     configMapGenerator = [],
+    secretGenerator = [],
   } = config;
 
   const patches = [];
@@ -60,6 +62,7 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
 
   resources.push(Promise.all(resourceFiles.map(readObj)));
   resources.push(Promise.all(configMapGenerator.map(generateConfigMap(readStr))));
+  resources.push(Promise.all(secretGenerator.map(generateSecret(readBytes))));
 
   const transform = pipeline(...await Promise.all(patches));
   return Promise.all(resources).then(flatten).then(rs => rs.map(transform));

@@ -1,5 +1,6 @@
 import overlay from '../src/overlay';
 import { fs, Encoding } from './mock';
+import { ConfigMap, Secret } from '../src/kubernetes';
 
 test('trivial overlay: no bases, resources, patches', () => {
   const { read } = fs({}, {});
@@ -98,5 +99,40 @@ test('patch resource', () => {
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
     expect(v).toEqual([service, patchedDeployment]);
+  });
+});
+
+test('generate resources', () => {
+  const kustomize = {
+    configMapGenerator: [
+      {
+        name: 'foobar',
+        literals: ['foo=bar'],
+        files: ['bar'],
+      },
+    ],
+    secretGenerator: [
+      {
+        name: 'ssshh',
+        literals: ['foo=foobar'],
+      }
+    ],
+  };
+  const files = {
+    './bar': { string: 'foo' },
+  };
+
+  const configmap = new ConfigMap(undefined, 'foobar', {
+    'foo': 'bar',
+    'bar': 'foo',
+  });
+  const secret = new Secret(undefined, 'ssshh', {
+    'foo': 'Zm9vYmFy',
+  });
+
+  const o = overlay(fs({}, files));
+  expect.assertions(1);
+  return o('.', kustomize).then((v) => {
+    expect(v).toEqual([configmap, secret]);
   });
 });

@@ -1,5 +1,5 @@
-import { generateConfigMap } from '../src/overlay/generators';
-import { ConfigMap } from '../src/kubernetes';
+import { generateConfigMap, generateSecret } from '../src/overlay/generators';
+import { ConfigMap, Secret } from '../src/kubernetes';
 import { fs } from './mock';
 
 test('empty configmap', () => {
@@ -28,6 +28,30 @@ test('files and literals', () => {
     expect(v).toEqual(new ConfigMap(undefined, 'foo-conf', {
       'foo.yaml': 'foo: bar',
       'some.property': 'some.value',
+    }));
+  });
+});
+
+test('secret from literal', () => {
+  // this relies on a known base64 encoding:
+  // 'foobar' -> 'Zm9vYmFy' (NB no trailing newline)
+  const foobar = 'foobar';
+  const foobarEncoded = 'Zm9vYmFy';
+  const read = () => {
+    return Promise.resolve(new Uint8Array([ 102, 111, 111, 98, 97, 114 ]));
+  };
+  const gen = generateSecret(read);
+  const conf = {
+    name: 'foo-secret',
+    files: ['foo.bin'],
+    literals: ['foo.literal=foobar'],
+  };
+
+  expect.assertions(1);
+  return gen(conf).then((v) => {
+    expect(v).toEqual(new Secret(undefined, 'foo-secret', {
+      'foo.bin': foobarEncoded,
+      'foo.literal': foobarEncoded,
     }));
   });
 });
