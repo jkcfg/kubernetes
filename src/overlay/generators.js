@@ -66,6 +66,6 @@ const generateSecret = readBytes => async function generate(config) {
     });
     return new Secret(undefined, name, data);
   });
-}
+};
 
 export { generateConfigMap, generateSecret };

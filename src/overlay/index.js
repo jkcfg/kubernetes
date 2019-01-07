@@ -25,7 +25,7 @@
 //
 // Easy peasy!
 
-import { patchResource } from './transforms';
+import { patchResource, commonMetadata } from './transforms';
 import { generateConfigMap, generateSecret } from './generators';
 
 const flatten = array => [].concat(...array);
@@ -52,7 +52,7 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
   });
 
   // TODO: add the other kinds of transformation: imageTags,
-  // globalAnnotations, etc.
+  // commonAnnotations, etc.
 
   const resources = []; // :: [Promise [Resource]]
   baseFiles.forEach((f) => {
@@ -64,7 +64,7 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
   resources.push(Promise.all(configMapGenerator.map(generateConfigMap(readStr))));
   resources.push(Promise.all(secretGenerator.map(generateSecret(readBytes))));
 
-  const transform = pipeline(...await Promise.all(patches));
+  const transform = pipeline(...await Promise.all(patches), commonMetadata(config));
   return Promise.all(resources).then(flatten).then(rs => rs.map(transform));
 };
 

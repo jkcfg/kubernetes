@@ -67,6 +67,9 @@ test('compose bases', () => {
 });
 
 test('patch resource', () => {
+  const commonLabels = { app: 'foobar' };
+  const commonAnnotations = { awesome: 'true' };
+
   const patch = {
     apiVersion: deployment.apiVersion,
     kind: deployment.kind,
@@ -78,10 +81,23 @@ test('patch resource', () => {
 
   const patchedDeployment = {
     ...deployment,
+    metadata: {
+      ...deployment.metadata,
+      labels: commonLabels,
+      annotations: commonAnnotations,
+    },
     spec: {
       ...deployment.spec,
       replicas: 10,
     },
+  };
+  const patchedService = {
+    ...service,
+    metadata: {
+      ...service.metadata,
+      labels: commonLabels,
+      annotations: commonAnnotations,
+    }
   };
 
   const files = {
@@ -91,6 +107,8 @@ test('patch resource', () => {
   };
 
   const kustomize = {
+    commonLabels,
+    commonAnnotations,
     resources: ['service.yaml', 'deployment.yaml'],
     patches: ['patch.yaml'],
   };
@@ -98,7 +116,7 @@ test('patch resource', () => {
   const o = overlay(fs({}, files));
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
-    expect(v).toEqual([service, patchedDeployment]);
+    expect(v).toEqual([patchedService, patchedDeployment]);
   });
 });
 

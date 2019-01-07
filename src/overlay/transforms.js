@@ -1,4 +1,4 @@
-import { patch } from '@jkcfg/mixins/src/mixins';
+import { patch, patches } from '@jkcfg/mixins/src/mixins';
 
 // resourceMatch returns a predicate which gives true if the given
 // object represents the same resource as `template`, false otherwise.
@@ -25,4 +25,21 @@ function patchResource(p) {
   return v => (match(v) ? patch(v, p) : v);
 }
 
-export { patchResource };
+// commonMetadata returns a tranformation that will indiscriminately
+// add the given labels and annotations to every resource.
+function commonMetadata({ commonLabels = null, commonAnnotations = null }) {
+  // This isn't quite as cute as it could be; naively, just assembling a patch
+  //     { metadata: { labels: commonLabels, annotations: commonAnnotations }
+  // doesn't work, as it will assign null (or empty) values where they are not
+  // present.
+  const metaPatches = [];
+  if (commonLabels !== null) {
+    metaPatches.push({ metadata: { labels: commonLabels } });
+  }
+  if (commonAnnotations !== null) {
+    metaPatches.push({ metadata: { annotations: commonAnnotations } });
+  }
+  return patches(...metaPatches);
+}
+
+export { patchResource, commonMetadata };
