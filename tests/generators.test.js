@@ -1,5 +1,5 @@
-import { generateConfigMap, generateSecret } from '../src/overlay/generators';
-import { ConfigMap, Secret } from '../src/kubernetes';
+import { generateConfigMap, generateSecret } from '../dist/overlay/generators';
+import { core } from '../dist/api';
 import { fs } from './mock';
 
 test('empty configmap', () => {
@@ -8,7 +8,7 @@ test('empty configmap', () => {
     throw new Error('unexpected read of ${f}');
   });
   return gen({name: 'foo-conf'}).then((v) => {
-    expect(v).toEqual(new ConfigMap(undefined, 'foo-conf', {}));
+    expect(v).toEqual(new core.v1.ConfigMap('foo-conf', { data: {} }));
   })
 });
 
@@ -25,9 +25,11 @@ test('files and literals', () => {
   };
   expect.assertions(1);
   return gen(conf).then((v) => {
-    expect(v).toEqual(new ConfigMap(undefined, 'foo-conf', {
-      'foo.yaml': 'foo: bar',
-      'some.property': 'some.value',
+    expect(v).toEqual(new core.v1.ConfigMap('foo-conf', {
+      data: {
+        'foo.yaml': 'foo: bar',
+        'some.property': 'some.value',
+      }
     }));
   });
 });
@@ -49,9 +51,11 @@ test('secret from literal', () => {
 
   expect.assertions(1);
   return gen(conf).then((v) => {
-    expect(v).toEqual(new Secret(undefined, 'foo-secret', {
-      'foo.bin': foobarEncoded,
-      'foo.literal': foobarEncoded,
+    expect(v).toEqual(new core.v1.Secret('foo-secret', {
+      data: {
+        'foo.bin': foobarEncoded,
+        'foo.literal': foobarEncoded,
+      }
     }));
   });
 });
