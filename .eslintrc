@@ -8,6 +8,10 @@
           "^std$"
         ]
       }
-    ]
+    ],
+    "no-bitwise": [
+      "error", {"allow": ["<<", ">>", "|", "&"]}
+    ],
+    "indent": ["error", 2, {"SwitchCase": 0, "CallExpression": {"arguments": "first"}}]
   }
 }

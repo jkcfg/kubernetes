@@ -44,6 +44,15 @@ class ConfigMap {
   }
 }
 
+class Secret {
+  constructor(ns, name, data) {
+    this.apiVersion = 'v1';
+    this.kind = 'Secret';
+    this.metadata = new Meta(ns, name);
+    this.data = data;
+  }
+}
+
 export {
-  Container, Meta, Deployment, ConfigMap,
+  Container, Meta, Deployment, ConfigMap, Secret,
 };

@@ -4,7 +4,9 @@
   "bugs": {
     "url": "https://github.com/jkcfg/kubernetes/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@jkcfg/mixins": "^0.1.2"
+  },
   "description": "jk Kubernetes library",
   "devDependencies": {
     "babel-jest": "^23.6.0",
@@ -34,11 +36,13 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/tests/**"
+      "<rootDir>/tests/*.test.js"
     ],
     "transform": {
       ".*": "<rootDir>/node_modules/babel-jest"
-    }
+    },
+    "transformIgnorePatterns": [],
+    "moduleDirectories": ["<rootDir>/node_modules"]
   },
   "version": "0.1.0"
 }
