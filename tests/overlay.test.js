@@ -1,6 +1,6 @@
-import overlay from '../dist/overlay';
+import overlay from '../src/overlay';
 import { fs, Encoding } from './mock';
-import { core } from '../dist/api';
+import { core } from '../src/api';
 
 test('trivial overlay: no bases, resources, patches', () => {
   const { read } = fs({}, {});

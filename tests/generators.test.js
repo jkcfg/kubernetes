@@ -1,5 +1,5 @@
-import { generateConfigMap, generateSecret } from '../dist/overlay/generators';
-import { core } from '../dist/api';
+import { generateConfigMap, generateSecret } from '../src/overlay/generators';
+import { core } from '../src/api';
 import { fs } from './mock';
 
 test('empty configmap', () => {

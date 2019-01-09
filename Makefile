@@ -17,5 +17,5 @@ clean:
 	rm -rf dist
 	rm -f src/api.ts src/shapes.ts
 
-test: dist
+test: gen
 	npm test

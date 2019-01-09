@@ -37,6 +37,5 @@ test('patch something', () => {
   // the spec, rather than assigning into it.
   const expected = {...resource};
   expected.spec = {...resource.spec, replicas: 6};
-  
   expect(p(resource)).toEqual(expected);
 });
