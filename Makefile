@@ -1,4 +1,4 @@
-.PHONY: dist clean-dist gen
+.PHONY: dist clean-dist gen test
 
 all: gen
 
