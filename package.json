@@ -37,10 +37,18 @@
   },
   "jest": {
     "preset": "ts-jest/presets/js-with-babel",
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+        "ignoreCodes": [151001]
+        }
+      }
+    },
     "testMatch": [
       "<rootDir>/tests/*.test.js"
     ],
-    "transformIgnorePatterns": [],
+    "transformIgnorePatterns": ["<rootDir>/dist/"],
+    "modulePathIgnorePatterns": ["<rootDir>/dist/"],
     "moduleDirectories": [
       "<rootDir>/node_modules"
     ]
