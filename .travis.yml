@@ -6,6 +6,13 @@ cache: npm
 env:
   global:
     - GOVERSION=1.11.2
+    - GOPATH=
+    - GOROOT=
+    - PATH=~/go-${GOVERSION}/bin:~/go/bin:$PATH
+
+before_install:
+    - (cd ~ && curl -fsSLO https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz)
+    - mkdir ~/go-${GOVERSION} && tar xf ~/go${GOVERSION}.linux-amd64.tar.gz -C ~/go-${GOVERSION} --strip-components 1
 
 jobs:
   include:
@@ -14,17 +21,11 @@ jobs:
       script: npm run lint
 
     - name: unit tests
-      script: npm test
+      script: make test
 
     - stage: Deploy
       script:
-        # go
-        - (cd ~ && curl -fsSLO https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz)
-        - mkdir ~/go-${GOVERSION} && tar xf ~/go${GOVERSION}.linux-amd64.tar.gz -C ~/go-${GOVERSION} --strip-components 1
-        - unset GOPATH GOROOT
-        - export PATH=~/go-${GOVERSION}/bin:~/go/bin:$PATH
-
         # build and publish
-        - make gen dist
+        - make dist
         - cd dist && npm publish
       if: tag IS present

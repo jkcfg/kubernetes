@@ -1,6 +1,6 @@
 import { dataFromFiles } from './data';
 import { basename } from '../path';
-import { ConfigMap, Secret } from '../kubernetes';
+import { core } from '../api';
 import { encode as base64encode, ascii2bytes } from '../base64';
 
 const generateConfigMap = readStr => async function generate(config) {
@@ -20,7 +20,7 @@ const generateConfigMap = readStr => async function generate(config) {
     d.forEach((v, k) => {
       data[basename(k)] = v;
     });
-    return new ConfigMap(undefined, name, data);
+    return new core.v1.ConfigMap(name, { data });
   });
 };
 
@@ -64,7 +64,7 @@ const generateSecret = readBytes => async function generate(config) {
     d.forEach((v, k) => {
       data[basename(k)] = base64encode(v);
     });
-    return new Secret(undefined, name, data);
+    return new core.v1.Secret(name, { data });
   });
 };
 

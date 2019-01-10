@@ -1,6 +1,6 @@
 import overlay from '../src/overlay';
 import { fs, Encoding } from './mock';
-import { ConfigMap, Secret } from '../src/kubernetes';
+import { core } from '../src/api';
 
 test('trivial overlay: no bases, resources, patches', () => {
   const { read } = fs({}, {});
@@ -140,12 +140,16 @@ test('generate resources', () => {
     './bar': { string: 'foo' },
   };
 
-  const configmap = new ConfigMap(undefined, 'foobar', {
-    'foo': 'bar',
-    'bar': 'foo',
+  const configmap = new core.v1.ConfigMap('foobar', {
+    data: {
+      'foo': 'bar',
+      'bar': 'foo',
+    }
   });
-  const secret = new Secret(undefined, 'ssshh', {
-    'foo': 'Zm9vYmFy',
+  const secret = new core.v1.Secret('ssshh', {
+    data: {
+      'foo': 'Zm9vYmFy',
+    }
   });
 
   const o = overlay(fs({}, files));
