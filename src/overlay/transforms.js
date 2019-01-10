@@ -1,4 +1,5 @@
 import { patch, patches } from '@jkcfg/mixins/src/mixins';
+import { iterateContainers } from '../resources';
 
 // resourceMatch returns a predicate which gives true if the given
 // object represents the same resource as `template`, false otherwise.
@@ -42,4 +43,14 @@ function commonMetadata({ commonLabels = null, commonAnnotations = null }) {
   return patches(...metaPatches);
 }
 
-export { patchResource, commonMetadata };
+// rewriteImageRefs applies the given rewrite function to each image
+// ref used in a resource. TBD(michael): should this use a zipper, so
+// as to not mutate?
+const rewriteImageRefs = fn => function(resource) {
+  for (const container of iterateContainers(resource)) {
+    container['image'] = fn(container['image']);
+  }
+  return resource;
+}
+
+export { patchResource, commonMetadata, rewriteImageRefs };

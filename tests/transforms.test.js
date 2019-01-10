@@ -1,4 +1,5 @@
-import { patchResource } from '../src/overlay/transforms';
+import { patchResource, rewriteImageRefs } from '../src/overlay/transforms';
+import { apps } from '../src/api';
 
 // for the match predicate
 const template = {
@@ -38,4 +39,26 @@ test('patch something', () => {
   const expected = {...resource};
   expected.spec = {...resource.spec, replicas: 6};
   expect(p(resource)).toEqual(expected);
+});
+
+test('naive rewriteImageRefs', () => {
+  const dep = new apps.v1.Deployment('foo', {
+    metadata: {
+      namespace: 'foons',
+    },
+    spec: {
+      template: {
+        spec: {
+          initContainers: [
+            {
+              name: 'c1',
+              image: 'foo:v1',
+            }
+          ],
+        },
+      },
+    },
+  });
+  const dep2 = rewriteImageRefs(_ => 'bar:v1')(dep);
+  expect(dep2.spec.template.spec.initContainers[0].image).toEqual('bar:v1');
 });
