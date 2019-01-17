@@ -1,27 +1,25 @@
 // This module provides procedures for applying Kustomize-like
 // [overlays](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/kustomization.yaml).
-
-// In Kustomize, a configuration is given in a `kustomize.yaml` file;
-// here we'll interpret an object (which can of course be loaded from
-// a file). In a `kustomize.yaml` you refer to files from which to
-// load or generate resource manifests, and transformations to apply
-// to all or some resources.
+//
+// In Kustomize, a configuration is given in a `kustomization.yaml`
+// file; here we'll interpret an object (which can of course be loaded
+// from a file). In a `kustomization.yaml` you refer to files from
+// which to load or generate resource manifests, and transformations
+// to apply to all or some resources.
 //
 // The mechanism for composing configurations is to name `bases` in
-// the `kustomize.yaml` file; these are evaluated and included in the
-// resources.
+// the `kustomization.yaml` file; these are evaluated and included in
+// the resources.
 //
-//     Promise [Resource]
+// The overlay function is parameterised with the means of reading
+// files:
 //
-// There are different kinds of transformations, but they amount to
-//
-//     Resource -> Resource
+//     overlay :: { read, Encoding } -> object -> Promise [Resource]
 //
 // The approach taken here is
-//   0. load the file
 //   1. assemble all the transformations mentioned in various ways in the kustomize object;
-//   2. assemble all the resources, mentioned in various ways, in the kustomize object;
-//   2. run each resource through the transformations.
+//   2. assemble all the resources, including from bases, in the kustomize object;
+//   3. run each resource through the transformations.
 //
 // Easy peasy!
 
@@ -34,10 +32,13 @@ const pipeline = (...fns) => v => fns.reduce((acc, val) => val(acc), v);
 // overlay constructs an interpreter which takes an overlay object (as
 // would be parsed from a `kustomize.yaml`) and constructs a set of
 // resources to write out.
-const overlay = ({ read, Encoding }) => async function assemble(path, config) {
+const overlay = ({ read, Encoding }, opts = {}) => async function assemble(path, config) {
+  const { file = 'kustomization.yaml' } = opts;
+
   const readObj = f => read(`${path}/${f}`, { encoding: Encoding.JSON });
   const readStr = f => read(`${path}/${f}`, { encoding: Encoding.String });
   const readBytes = f => read(`${path}/${f}`, { encoding: Encoding.Bytes });
+
   const {
     resources: resourceFiles = [],
     bases: baseFiles = [],
@@ -56,7 +57,7 @@ const overlay = ({ read, Encoding }) => async function assemble(path, config) {
 
   const resources = []; // :: [Promise [Resource]]
   baseFiles.forEach((f) => {
-    const obj = readObj(`${f}/kustomize.yaml`);
+    const obj = readObj(`${f}/${file}`);
     resources.push(obj.then(o => assemble(`${path}/${f}`, o)));
   });
 
