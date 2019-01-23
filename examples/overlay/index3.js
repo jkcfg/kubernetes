@@ -1,4 +1,4 @@
-import overlay from '../../dist/overlay/index';
+import overlay from '@jkcfg/kubernetes/overlay';
 import { writeResources } from '../../dist/write';
 import std from '@jkcfg/std';
 import { core } from '@jkcfg/kubernetes/api';
