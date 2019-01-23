@@ -1,6 +1,7 @@
 {
   "extends": "airbnb-base",
   "rules": {
+    "import/prefer-default-export": 0,
     "import/no-unresolved": [
       2,
       {
@@ -13,6 +14,8 @@
     "no-bitwise": [
       "error", {"allow": ["<<", ">>", "|", "&"]}
     ],
-    "indent": ["error", 2, {"SwitchCase": 0, "CallExpression": {"arguments": "first"}}]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "indent": ["error", 2, {"SwitchCase": 0, "CallExpression": {"arguments": "first"}}],
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"]
   }
 }

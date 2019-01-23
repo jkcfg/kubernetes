@@ -1,4 +1,5 @@
 import { patch, patches } from '@jkcfg/mixins/src/mixins';
+import { iterateContainers } from '../resources';
 
 // resourceMatch returns a predicate which gives true if the given
 // object represents the same resource as `template`, false otherwise.
@@ -27,7 +28,7 @@ function patchResource(p) {
 
 // commonMetadata returns a tranformation that will indiscriminately
 // add the given labels and annotations to every resource.
-function commonMetadata({ commonLabels = null, commonAnnotations = null }) {
+function commonMetadata({ commonLabels = null, commonAnnotations = null, namespace = null }) {
   // This isn't quite as cute as it could be; naively, just assembling a patch
   //     { metadata: { labels: commonLabels, annotations: commonAnnotations }
   // doesn't work, as it will assign null (or empty) values where they are not
@@ -39,7 +40,20 @@ function commonMetadata({ commonLabels = null, commonAnnotations = null }) {
   if (commonAnnotations !== null) {
     metaPatches.push({ metadata: { annotations: commonAnnotations } });
   }
+  if (namespace !== null) {
+    metaPatches.push({ metadata: { namespace } });
+  }
   return patches(...metaPatches);
 }
 
-export { patchResource, commonMetadata };
+// rewriteImageRefs applies the given rewrite function to each image
+// ref used in a resource. TBD(michael): should this use a zipper, so
+// as to not mutate?
+const rewriteImageRefs = rewrite => (resource) => {
+  for (const container of iterateContainers(resource)) {
+    container.image = rewrite(container.image);
+  }
+  return resource;
+};
+
+export { patchResource, commonMetadata, rewriteImageRefs };

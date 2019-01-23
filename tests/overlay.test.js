@@ -55,7 +55,7 @@ test('compose bases', () => {
   }
   const files = {
     './service.yaml': { json: service },
-    './sub/kustomize.yaml': { json: subkustomize },
+    './sub/kustomization.yaml': { json: subkustomize },
     './sub/deployment.yaml': { json: deployment },
   };
 
