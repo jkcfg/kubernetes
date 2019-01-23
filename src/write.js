@@ -7,7 +7,6 @@ const writeResources = write => function(resources) {
     if (r.metadata.namespace) {
       path = `${r.metadata.namespace}/${filename}`;
     }
-    console.log("write ", r, path);
     write(r, path);
   });
 };

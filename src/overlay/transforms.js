@@ -28,7 +28,7 @@ function patchResource(p) {
 
 // commonMetadata returns a tranformation that will indiscriminately
 // add the given labels and annotations to every resource.
-function commonMetadata({ commonLabels = null, commonAnnotations = null }) {
+function commonMetadata({ commonLabels = null, commonAnnotations = null, namespace = null }) {
   // This isn't quite as cute as it could be; naively, just assembling a patch
   //     { metadata: { labels: commonLabels, annotations: commonAnnotations }
   // doesn't work, as it will assign null (or empty) values where they are not
@@ -39,6 +39,9 @@ function commonMetadata({ commonLabels = null, commonAnnotations = null }) {
   }
   if (commonAnnotations !== null) {
     metaPatches.push({ metadata: { annotations: commonAnnotations } });
+  }
+  if (namespace !== null) {
+    metaPatches.push({ metadata: { namespace: namespace } });
   }
   return patches(...metaPatches);
 }
