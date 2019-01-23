@@ -1,6 +1,6 @@
 // Write all the individual resources out in directories and files
 // according to their namespace, kind and name.
-const writeResources = write => function(resources) {
+const writeResources = write => (resources) => {
   resources.forEach((r) => {
     const filename = `${r.metadata.name}-${r.kind.toLowerCase()}.yaml`;
     let path = filename;

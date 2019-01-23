@@ -41,7 +41,7 @@ function commonMetadata({ commonLabels = null, commonAnnotations = null, namespa
     metaPatches.push({ metadata: { annotations: commonAnnotations } });
   }
   if (namespace !== null) {
-    metaPatches.push({ metadata: { namespace: namespace } });
+    metaPatches.push({ metadata: { namespace } });
   }
   return patches(...metaPatches);
 }
@@ -49,11 +49,11 @@ function commonMetadata({ commonLabels = null, commonAnnotations = null, namespa
 // rewriteImageRefs applies the given rewrite function to each image
 // ref used in a resource. TBD(michael): should this use a zipper, so
 // as to not mutate?
-const rewriteImageRefs = fn => function(resource) {
+const rewriteImageRefs = rewrite => (resource) => {
   for (const container of iterateContainers(resource)) {
-    container['image'] = fn(container['image']);
+    container.image = rewrite(container.image);
   }
   return resource;
-}
+};
 
 export { patchResource, commonMetadata, rewriteImageRefs };

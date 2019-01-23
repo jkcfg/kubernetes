@@ -3,7 +3,7 @@
 function traverse(path, object, def) {
   let obj = object;
   for (const elem of path) {
-    if (!obj.hasOwnProperty(elem)) {
+    if (!Object.prototype.hasOwnProperty.call(obj, elem)) {
       return def;
     }
     obj = obj[elem];
@@ -18,15 +18,14 @@ function* iterateContainers(resource) {
   for (const path of [
     ['spec', 'template', 'spec', 'initContainers'],
     ['spec', 'template', 'spec', 'containers'],
-    ['spec', 'jobTemplate', 'spec', 'template', 'spec', 'initContainers'],    
+    ['spec', 'jobTemplate', 'spec', 'template', 'spec', 'initContainers'],
     ['spec', 'jobTemplate', 'spec', 'template', 'spec', 'containers'],
   ]) {
     const containers = traverse(path, resource, []);
-    for (let i = 0; i < containers.length; i++ ) {
+    for (let i = 0; i < containers.length; i++) {
       yield containers[i];
     }
   }
-  return;
 }
 
 export { iterateContainers };
