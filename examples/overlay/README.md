@@ -15,6 +15,27 @@ specialize a given kustomization with some variations; or, to
 post-process generated resources in a way kustomize doesn't have built
 in.
 
+### How to run an example
+
+The examples are in the files `index*.js`. To run them, change to this
+directory `examples/overlay`, and run (for instance)
+
+    jk run ./index1.js
+
+### Description of the examples
+
+ - `index1.js` -- this evaluates the simple overlay in
+   `kustomization.yaml` and prints the output to stdout.
+
+ - `index2.js` -- this adds some more customisation to the overlay
+   given in `kustomization.yaml`, including another resource from a
+   file, and prints the output to stdout.
+
+ - `index3.js` -- this example customises the overlay as in the second
+   example, adds a resource constructed in code, then replicates it
+   across three sets of output configuration files, for different
+   environments.
+
 ### kustomize compatibility
 
 Here are the bits of kustomize that are implemented in this module.
