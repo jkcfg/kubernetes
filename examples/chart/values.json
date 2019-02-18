@@ -1,0 +1,8 @@
+{
+  "values": {
+    "app": "olleh",
+    "image": {
+      "tag": "v2"
+    }
+  }
+}
