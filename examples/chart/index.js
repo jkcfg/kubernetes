@@ -3,8 +3,6 @@ import std from '@jkcfg/std';
 
 import resources from './resources';
 
-const readJSON = f => std.read(f, std.Encoding.JSON);
-
 const defaults = {
   name: 'helloworld',
   app: 'hello',

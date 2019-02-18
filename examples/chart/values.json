@@ -1,6 +1,8 @@
 {
   "values": {
     "app": "olleh",
-    "tag": "v2"
+    "image": {
+      "tag": "v2"
+    }
   }
 }
