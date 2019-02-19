@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+meta:
+  name: '{{values.name}}'
+spec:
+  template:
+    labels:
+      app: '{{values.app}}'
+      spec:
+        containers:
+        - name: hello
+          image: '{{values.image.repository}}:{{values.image.tag}}'
