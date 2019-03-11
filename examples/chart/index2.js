@@ -2,6 +2,7 @@
 
 import handlebars from 'handlebars/lib/handlebars.js';
 import { chart } from '@jkcfg/kubernetes/chart';
+import * as resource from '@jkcfg/std/resource';
 import std from '@jkcfg/std';
 
 const defaults = {
@@ -17,13 +18,13 @@ const isTemplateFile = info => (!info.isDir && info.name.endsWith('.yaml'));
 
 // filename -> Promise (values -> resource)
 async function loadTemplate({ path }) {
-  const file = await std.read(path, { encoding: std.Encoding.String });
+  const file = await resource.read(path, { encoding: std.Encoding.String });
   const template = handlebars.compile(file);
   return values => template({ values });
 }
 
 async function resources(values) /* Promise [resource] */ {
-  const dir = std.dir('templates');
+  const dir = resource.dir('templates');
   const templates = await Promise.all(dir.files.filter(isTemplateFile).map(loadTemplate));
   return templates.map(t => t(values));
 }
