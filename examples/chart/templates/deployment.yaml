@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 meta:
-  name: '{{values.name}}'
+  name: '{{values.name}}-dep'
 spec:
   template:
     labels:

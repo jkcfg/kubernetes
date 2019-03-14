@@ -1,6 +1,6 @@
 # Analogue to a Helm chart
 
-This examples shows a Helm chart analogue for `jk`. The aim is to have
+This example shows a Helm chart analogue for `jk`. The aim is to have
 a template to which you can supply values upon
 instantiation. Secondarily, the "chart" can be published, and reused
 in another configuration. It's not a goal here to reproduce the
