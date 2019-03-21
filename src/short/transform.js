@@ -33,8 +33,11 @@ function transformer(field) {
   switch (typeof field) {
   case 'string': return relocate(field);
   case 'function': return field;
-  case 'object': return v => transform(field, v);
-  default: return v => v;
+  case 'object':
+    return (Array.isArray(field)) ?
+      v => v.map(transformer(field[0])):
+      v => transform(field, v);
+  default: return v => field;
   }
 }
 
