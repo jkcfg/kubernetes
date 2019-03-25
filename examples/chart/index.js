@@ -12,4 +12,6 @@ const defaults = {
   }
 };
 
-chart(resources, defaults, std.param);
+const output = resources => std.log(resources, { format: std.Format.YAMLStream });
+
+chart(resources, defaults, std.param).then(output);

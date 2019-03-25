@@ -2,6 +2,7 @@
 
 import { chart } from '@jkcfg/kubernetes/chart';
 import { load } from '@jkcfg/kubernetes/chart/template';
+import { writeYAMLStream } from '@jkcfg/kubernetes/write';
 import * as resource from '@jkcfg/std/resource';
 import std from '@jkcfg/std';
 
@@ -16,4 +17,9 @@ const defaults = {
 
 const templates = load(resource);
 
-chart(templates, defaults, std.param);
+// Because we get strings out of the templates, rather than objects,
+// we don't need to serialise them; so, use writeYAMLStream, which we
+// can specialise so that it just splats strings to stdout.
+const output = writeYAMLStream(std.log, std.log);
+
+chart(templates, defaults, std.param).then(output);

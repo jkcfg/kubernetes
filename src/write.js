@@ -11,11 +11,14 @@ const writeResources = writeFile => (resources) => {
   });
 };
 
-const writeStream = (writeString, writeYAML) => (resources) => {
+// writeStream gives a little more flexibility for writing out a list
+// of resources than std.write. This is useful if you generated
+// strings instead of objects for your resources, for example.
+const writeYAMLStream = (writeString, writeResource) => (resources) => {
   resources.forEach((r) => {
     writeString('---');
-    writeYAML(r);
+    writeResource(r);
   });
 };
 
-export { writeResources, writeStream };
+export { writeResources, writeYAMLStream };
