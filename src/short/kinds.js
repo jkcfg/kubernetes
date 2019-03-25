@@ -1,5 +1,5 @@
 import { apps, core } from '../api';
-import { transform, valueMap, thread } from './transform';
+import { transform, valueMap, mapper } from './transform';
 
 // Take a constructor (e.g., from the API) and return a transformer
 // that will construct the API resource given a API resource "shape".
@@ -265,21 +265,21 @@ const containerSpec = {
     'never': 'Never',
     'if-not-present': 'IfNotPresent',
   }),
-  on_start: thread(action, 'lifecycle.postStart'),
-  pre_stop: thread(action, 'lifecycle.preStop'),
+  on_start: [action, 'lifecycle.postStart'],
+  pre_stop: [action, 'lifecycle.preStop'],
   cpu: resource('cpu'),
   mem: resource('memory'),
   cap_add: 'securityContext.capabilities.add',
   cap_drop: 'securityContext.capabilities.drop',
   privileged: 'securityContext.privileged',
   allow_escalation: 'securityContext.allowPrivilegeEscalation',
-  rw: thread(v => !v, 'securityContext.readOnlyRootFilesystem'),
+  rw: [v => !v, 'securityContext.readOnlyRootFilesystem'],
   ro: 'securityContext.readOnlyRootFilesystem',
   force_non_root: 'securityContext.runAsNonRoot',
   uid: 'securityContext.runAsUser',
   selinux: 'securityContext.seLinuxOptions',
-  liveness_probe: thread(probe, 'livenessProbe'),
-  readiness_probe: thread(probe, 'readinessProbe'),
+  liveness_probe: [probe, 'livenessProbe'],
+  readiness_probe: [probe, 'readinessProbe'],
   expose: ports,
   stdin: 'stdin',
   stdin_once: 'stdinOnce',
@@ -290,7 +290,7 @@ const containerSpec = {
     file: 'File',
     'fallback-to-logs-on-error': 'FallbackToLogsOnError',
   }),
-  volume: thread([volumeMount], 'volumeMounts'),
+  volume: [mapper(volumeMount), 'volumeMounts'],
 };
 
 /* eslint-disable object-shorthand */
@@ -299,8 +299,8 @@ const podSpec = {
   volumes: volumes,
   affinity: affinities,
   node: 'spec.nodeName',
-  containers: thread([containerSpec], 'spec.containers'),
-  init_containers: thread([containerSpec], 'spec.initContainers'),
+  containers: [mapper(containerSpec), 'spec.containers'],
+  init_containers: [mapper(containerSpec), 'spec.initContainers'],
   dns_policy: valueMap('spec.dnsPolicy', {
     'cluster-first': 'ClusterFirst',
     'cluster-first-with-host-net': 'ClusterFirstWithHostNet',
@@ -309,7 +309,7 @@ const podSpec = {
   host_aliases: hostAliases,
   host_mode: hostMode,
   hostname: hostName,
-  registry_secrets: thread([name => ({ name })], 'spec.imagePullSecrets'),
+  registry_secrets: [mapper(name => ({ name })), 'spec.imagePullSecrets'],
   restart_policy: valueMap('spec.restartPolicy', {
     'always': 'Always',
     'on-failure': 'OnFailure',
