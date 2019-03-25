@@ -15,7 +15,8 @@ const defaults = {
   }
 };
 
-const templates = load(resource);
+const readString = path => resource.read(path, { encoding: std.Encoding.String });
+const templates = load({ readString, ...resource });
 
 // Because we get strings out of the templates, rather than objects,
 // we don't need to serialise them; so, use writeYAMLStream, which we
