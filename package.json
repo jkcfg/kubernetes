@@ -5,7 +5,8 @@
     "url": "https://github.com/jkcfg/kubernetes/issues"
   },
   "dependencies": {
-    "@jkcfg/mixins": "^0.1.2"
+    "@jkcfg/mixins": "^0.1.2",
+    "handlebars": "^4.1.1"
   },
   "description": "jk Kubernetes library",
   "devDependencies": {
@@ -40,15 +41,21 @@
     "globals": {
       "ts-jest": {
         "diagnostics": {
-        "ignoreCodes": [151001]
+          "ignoreCodes": [
+            151001
+          ]
         }
       }
     },
     "testMatch": [
       "<rootDir>/tests/*.test.js"
     ],
-    "transformIgnorePatterns": ["<rootDir>/dist/"],
-    "modulePathIgnorePatterns": ["<rootDir>/dist/"],
+    "transformIgnorePatterns": [
+      "<rootDir>/dist/"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
+    ],
     "moduleDirectories": [
       "<rootDir>/node_modules"
     ]

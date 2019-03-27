@@ -1,4 +1,4 @@
-import handlebars from 'handlebars/lib/handlebars.js';
+import handlebars from 'handlebars/lib/handlebars';
 
 const isTemplateFile = info => (!info.isDir && info.name.endsWith('.yaml'));
 

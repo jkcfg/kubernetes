@@ -19,3 +19,4 @@ clean:
 
 test: gen
 	npm test
+	npm run lint
