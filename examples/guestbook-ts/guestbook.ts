@@ -1,4 +1,4 @@
-import std from 'std';
+import * as std from '@jkcfg/std';
 import * as k8s from '@jkcfg/kubernetes/api';
 
 const redisLabels = {

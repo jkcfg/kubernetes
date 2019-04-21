@@ -18,10 +18,10 @@
   "author": "The jk Authors",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@jkcfg/std": "^0.1.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.4.4"
   },
   "dependencies": {
+    "@jkcfg/std": "^0.2.3",
     "@jkcfg/kubernetes": "^0.2.0"
   }
 }

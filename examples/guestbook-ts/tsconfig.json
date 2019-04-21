@@ -8,7 +8,6 @@
     "experimentalDecorators": true,
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": true,
