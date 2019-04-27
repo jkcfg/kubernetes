@@ -2,15 +2,15 @@
 
 To run this example:
 
-```
-# Install the required dependencies: `typecript`, `@jkcfg/kubernetes`, ...
+```console
+# Install the required dependencies: `typescript`, `@jkcfg/kubernetes`, ...
 $ npm install
 
 # Transpile typescript to javascript
 $ npx tsc
 
 # Run jk on the resulting javascript
-$ jk run -v guestbook.ts 
+$ jk run -v guestbook.ts
 wrote redis-master-deployment.yaml
 ```
 
