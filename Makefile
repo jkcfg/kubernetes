@@ -3,7 +3,7 @@
 all: gen
 
 gen:
-	go run ./cmd/apigen/ cmd/apigen/specs/swagger-v1.13.0.json cmd/apigen/templates ./src/
+	GO111MODULE=on go run ./cmd/apigen/ cmd/apigen/specs/swagger-v1.13.0.json cmd/apigen/templates ./src/
 
 src/api.ts: gen
 src/shapes.ts: gen
