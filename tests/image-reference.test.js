@@ -36,3 +36,15 @@ import { ImageReference } from '../src/image-reference';
     }
   });
 });
+
+[
+  ['ubuntu'],
+  ['ubuntu:18.04'],
+  ['docker.io/library/ubuntu:18.04'],
+  ['docker.io/library/ubuntu:18.04@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'],
+].forEach(([input]) => {
+  test(input, () => {
+    const ref = ImageReference.fromString(input);
+    expect(ref.toString()).toEqual(input);
+  });
+});

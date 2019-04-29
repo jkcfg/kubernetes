@@ -188,6 +188,23 @@ class ImageReference {
         }
     }
 
+    toString(): string {
+        let s = '';
+
+        if (this.domain) {
+            s += this.domain + '/';
+        }
+        s += this.path;
+        if (this.tag) {
+            s += ':' + this.tag;
+        }
+        if (this.digest) {
+            s += '@' + this.digest;
+        }
+
+        return s;
+    }
+
     static fromString(s: string): ImageReference {
         const matches = s.match(ReferenceRegexp);
         if (matches == null) {
