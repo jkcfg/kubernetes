@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "@jkcfg/kubernetes",
     "allowJs": true,
     "target": "es2017",
     "module": "es6",

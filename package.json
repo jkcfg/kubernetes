@@ -51,10 +51,10 @@
       "<rootDir>/tests/*.test.js"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/dist/"
+      "<rootDir>/@jkcfg/"
     ],
     "modulePathIgnorePatterns": [
-      "<rootDir>/dist/"
+      "<rootDir>/@jkcfg/"
     ],
     "moduleDirectories": [
       "<rootDir>/node_modules"
