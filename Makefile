@@ -11,10 +11,10 @@ src/shapes.ts: gen
 dist: src/api.ts src/shapes.ts
 	npx tsc
 	npx tsc -d --emitDeclarationOnly --allowJs false
-	cp README.md LICENSE package.json .npmrc $@
+	cp README.md LICENSE package.json .npmrc @jkcfg/kubernetes
 
 clean:
-	rm -rf dist
+	rm -rf @jkcfg
 	rm -f src/api.ts src/shapes.ts
 
 test: gen

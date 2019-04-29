@@ -13,9 +13,6 @@ keeping track of which charts have been released to the cluster.
 (in this directory)
 
 ```js
-npm install '@jkcfg/kubernetes'
-# or: make -C ../.. dist && npm install ../../dist
-
 # run the chart with defaults
 jk run ./index.js # or ./index2.js
 
