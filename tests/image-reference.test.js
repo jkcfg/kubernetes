@@ -43,7 +43,7 @@ import { ImageReference } from '../src/image-reference';
   ['docker.io/library/ubuntu:18.04'],
   ['docker.io/library/ubuntu:18.04@sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'],
 ].forEach(([input]) => {
-  test(input, () => {
+  test(`toString: ${input}`, () => {
     const ref = ImageReference.fromString(input);
     expect(ref.toString()).toEqual(input);
   });
