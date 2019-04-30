@@ -188,6 +188,11 @@ class ImageReference {
         }
     }
 
+    get image(): string {
+        const components = this.path.split('/');
+        return components[components.length - 1];
+    }
+
     toString(): string {
         let s = '';
 

@@ -48,3 +48,14 @@ import { ImageReference } from '../src/image-reference';
     expect(ref.toString()).toEqual(input);
   });
 });
+
+[
+  ['ubuntu', { output: 'ubuntu' }],
+  ['ubuntu:18.04', { output: 'ubuntu' }],
+  ['docker.io/library/ubuntu:18.04', { output: 'ubuntu' }],
+].forEach(([input, expected]) => {
+  test(`image: ${input}`, () => {
+    const ref = ImageReference.fromString(input);
+    expect(ref.image).toEqual(expected.output);
+  });
+});
