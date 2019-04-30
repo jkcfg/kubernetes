@@ -23,6 +23,9 @@ jobs:
     - name: unit tests
       script: make test
 
+    - name: dist
+      script: make dist
+
     - stage: Deploy
       script:
         # build and publish
