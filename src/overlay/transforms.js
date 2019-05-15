@@ -1,4 +1,4 @@
-import { patch, patches } from '@jkcfg/mixins/src/mixins';
+import { patch, mix } from '@jkcfg/std/merge';
 import { iterateContainers } from '../resources';
 
 // resourceMatch returns a predicate which gives true if the given
@@ -43,7 +43,7 @@ function commonMetadata({ commonLabels = null, commonAnnotations = null, namespa
   if (namespace !== null) {
     metaPatches.push({ metadata: { namespace } });
   }
-  return patches(...metaPatches);
+  return r => mix(r, ...metaPatches);
 }
 
 // rewriteImageRefs applies the given rewrite function to each image

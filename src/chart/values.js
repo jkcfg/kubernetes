@@ -1,4 +1,4 @@
-import { patch } from '@jkcfg/mixins/src/mixins';
+import { patch } from '@jkcfg/std/merge';
 
 // Given a means of getting parameters, and a specification of the
 // Values (including their defaults), compile a struct of values for
