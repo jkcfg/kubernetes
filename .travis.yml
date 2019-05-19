@@ -31,5 +31,5 @@ jobs:
         # build and publish
         - make dist
         - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > @jkcfg/kubernetes/.npmrc
-        - npm publish @jkcfg/kubernetes
+        - (cd @jkcfg/kubernetes && npm publish)
       if: tag IS present
