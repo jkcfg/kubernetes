@@ -1,19 +1,23 @@
 const isTemplateFile = info => (!info.isDir && info.name.endsWith('.yaml'));
 
 // { readString, compile } -> filename -> Promise (values -> resource)
-const loadTemplate = ({ readString, compile }) => async function load(path) {
+const loadTemplate = ({ readString, parse, compile }) => async function load(path) {
   const file = await readString(path);
   const template = compile(file);
-  return values => template({ values });
+  return values => parse(template({ values }));
 };
 
+function flatMap(fn, array) {
+  return Array.prototype.concat.call(Array.prototype.map.call(array, fn));
+}
+
 // { readString, compile, dir } -> values -> Promise [string]
-const loadDir = ({ readString, compile, dir }, path = 'templates') => async function templates(values) {
-  const load = loadTemplate({ readString, compile });
+const loadDir = ({ readString, parse, compile, dir }, path = 'templates') => async function templates(values) {
+  const load = loadTemplate({ readString, compile, parse });
   const d = dir(path);
   const loadTempl = info => load(info.path);
   const allTempl = await Promise.all(d.files.filter(isTemplateFile).map(loadTempl));
-  return allTempl.map(t => t(values));
+  return flatMap(t => t(values), allTempl);
 };
 
 export { loadDir, loadTemplate };

@@ -17,9 +17,4 @@ const defaults = {
 
 const templates = loadModuleTemplates(handlebars.compile, resource);
 
-// Because we get strings out of the templates, rather than objects,
-// we don't need to serialise them; so, use writeYAMLStream, which we
-// can specialise so that it just splats strings to stdout.
-const output = writeYAMLStream(std.log, std.log);
-
-chart(templates, defaults, std.param).then(output);
+chart(templates, defaults, std.param).then(val => std.log(val, { format: std.Format.YAMLStream }));
