@@ -17,6 +17,7 @@
     ],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "indent": ["error", 2, {"SwitchCase": 0, "CallExpression": {"arguments": "first"}}],
-    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"]
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+    "object-curly-newline": ["error", { "ImportDeclaration": "never" }]
   }
 }
