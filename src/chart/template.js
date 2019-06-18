@@ -8,9 +8,9 @@ const loadTemplate = ({ readString, compile }) => async function load(path) {
 };
 
 // { readString, compile, dir } -> values -> Promise [string]
-const loadDir = ({ readString, compile, dir }) => async function templates(values) {
+const loadDir = ({ readString, compile, dir }, path = 'templates') => async function templates(values) {
   const load = loadTemplate({ readString, compile });
-  const d = dir('templates');
+  const d = dir(path);
   const loadTempl = info => load(info.path);
   const allTempl = await Promise.all(d.files.filter(isTemplateFile).map(loadTempl));
   return allTempl.map(t => t(values));

@@ -1,9 +1,27 @@
-import { values } from './values';
+import { dir } from '@jkcfg/std/fs';
+import { read, Encoding } from '@jkcfg/std';
 
-function chart(resourcesFn, defaults, param) {
+import { values } from './values';
+import { loadDir } from './template';
+
+function chart(resourcesFn, defaults, paramMod) {
   // lift defaults into Promise, since it may or may not be one
-  const vals = Promise.resolve(defaults).then(values(param));
+  const vals = Promise.resolve(defaults).then(values(paramMod));
   return vals.then(resourcesFn);
 }
 
-export { chart };
+const readStr = path => read(path, { encoding: Encoding.String });
+
+// loadTemplates :: (string -> template, path) -> values -> Promise [resource]
+function loadTemplates(compile, path = 'templates') {
+  return loadDir({ compile, readString: readStr, dir }, path);
+}
+
+// loadModuleTemplates :: (string -> template, <resources import>, path) ->
+//                          values -> Promise [resources]
+function loadModuleTemplates(compile, resources, path = 'templates') {
+  const readModuleStr = p => resources.read(p, { encoding: Encoding.String });
+  return loadDir({ compile, readString: readModuleStr, dir: resources.dir }, path);
+}
+
+export { chart, loadTemplates, loadModuleTemplates };
