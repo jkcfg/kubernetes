@@ -14,10 +14,14 @@ keeping track of which charts have been released to the cluster.
 
 ```js
 # run the chart with defaults
-jk run ./index.js # or ./index2.js
+jk generate --stdout ./index.js
+# or
+jk run ./index2.js
 
 # run the chart with some value parameter overrides
-jk run ./index.js -p values.app=goodbye -f ./values.json
+jk generate --stdout ./index.js -p values.app=goodbye -f ./values.json
+# or
+jk run ./index2.js -f ./values.json
 ```
 
 ## Explanation
@@ -34,12 +38,12 @@ To instantiate a chart, the Helm tooling gathers together the values
 it is called with, fills in the defaults, then runs those through the
 template (and sends them off to be applied to the cluster).
 
-The `chart(...)` library procedure used here does the same work. It
-takes a "template" function that generates resources as JavaScript
-values, given the instantiation values; it gathers the values given on
-the command line, fills in the defaults, and runs the template
-function to generate the resources, which it prints to stdout as YAML
-docs.
+The `chart(...)` function used in these examples (via generateChart,
+in the first example) does the same work. It takes a "template"
+function that generates resources as JavaScript values, given the
+instantiation values; it gathers the values given on the command line,
+fills in the defaults, and runs the template function to generate the
+resources, which it prints to stdout as YAML docs.
 
 Taking these bits one by one ..
 
@@ -61,10 +65,20 @@ them all to instantiate them.
 
 **index2.js**
 
-This example demonstrates the use of
+This example demonstrates the use (via
+`@jkcfg/kubernetes/chart#loadModuleTemplates`) of
 `@jkcfg/kubernetes/chart/template` to load templates from files (the
 files are in `templates/`). The templates are close to Helm's `gotpl`,
 in their mode of use and syntax.
+
+An interesting point here is that the templates are loaded as module
+resources; meaning they could be distributed as part of an NPM package
+that acts much the same as a chart.
+
+Another thing to note is that the result of the templates is
+JavaScript _objects_ representing the resources. As with the other
+tooling here, that means they can be the input to other calculations,
+e.g., combined with patches using the `overlay` module.
 
 ### Collecting values
 
@@ -81,19 +95,13 @@ getting a promise of defaults.
 ### Printing results
 
 The two examples have slightly different ways of outputting their
-results. `index.js` can simply print a YAML stream using `std.write`,
-because it has objects representing the resources (and that's what
-`std.write` expects).
+results. `index.js` constructs an array of objects representing the
+resources and the files in which they belong. That's what `jk
+generate` expects; it has options for printing to stdout, or writing
+the objects to the files given.
 
-If the resources need to be specialised in some way unanticipated by
-the chart, you can do further transformations on the objects before
-printing them; e.g,. using parts of the overlay module.
-
-`index2.js` gets string values from running the templates, so it
-effectively just prints each string with the YAML document delimiter
-in between.
-
-Useful transformations on the strings are tricky; this is a
-consequence of using textual templates. But it should be possible in
-the future to feed strings to the `jk` runtime to get back objects,
-and unlock that possibility.
+`index2.js`, invoked with `jk run`, constructs the resource objects
+but does its own output. If the resources need to be specialised in
+some way unanticipated by the chart itself, you could do further
+transformations on the objects before printing them; e.g. using parts
+of the `overlay` module.

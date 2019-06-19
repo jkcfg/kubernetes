@@ -3,11 +3,16 @@ import { read, parse, Encoding, Format } from '@jkcfg/std';
 
 import { values } from './values';
 import { loadDir } from './template';
+import { valuesForGenerate } from '../generate';
 
 function chart(resourcesFn, defaults, paramMod) {
   // lift defaults into Promise, since it may or may not be one
   const vals = Promise.resolve(defaults).then(values(paramMod));
   return vals.then(resourcesFn);
+}
+
+function generateChart(resourcesFn, defaults, paramMod) {
+  return chart(resourcesFn, defaults, paramMod).then(valuesForGenerate);
 }
 
 const readStr = path => read(path, { encoding: Encoding.String });
@@ -26,4 +31,4 @@ function loadModuleTemplates(compile, resources, path = 'templates') {
   return loadDir(funcs, path);
 }
 
-export { chart, loadTemplates, loadModuleTemplates };
+export { chart, generateChart, loadTemplates, loadModuleTemplates };
