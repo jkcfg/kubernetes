@@ -1,10 +1,10 @@
-import overlay from '../src/overlay';
+import { compile } from '../src/overlay/compile';
 import { fs, Encoding } from './mock';
 import { core } from '../src/api';
 
 test('trivial overlay: no bases, resources, patches', () => {
   const { read } = fs({}, {});
-  const o = overlay({ read, Encoding });
+  const o = compile({ read, Encoding });
   expect.assertions(1);
   return o('config', {}).then((v) => {
     expect(v).toEqual([]);
@@ -38,7 +38,7 @@ test('load resources', () => {
     './deployment.yaml': { json: deployment },
     './service.yaml': { json: service },
   };
-  const o = overlay(fs({}, files));
+  const o = compile(fs({}, files));
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
     expect(v).toEqual([deployment, service]);
@@ -59,7 +59,7 @@ test('compose bases', () => {
     './sub/deployment.yaml': { json: deployment },
   };
 
-  const o = overlay(fs({}, files));
+  const o = compile(fs({}, files));
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
     expect(v).toEqual([deployment, service]);
@@ -113,7 +113,7 @@ test('patch resource', () => {
     patches: ['patch.yaml'],
   };
 
-  const o = overlay(fs({}, files));
+  const o = compile(fs({}, files));
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
     expect(v).toEqual([patchedService, patchedDeployment]);
@@ -152,7 +152,7 @@ test('generate resources', () => {
     }
   });
 
-  const o = overlay(fs({}, files));
+  const o = compile(fs({}, files));
   expect.assertions(1);
   return o('.', kustomize).then((v) => {
     expect(v).toEqual([configmap, secret]);
