@@ -1,4 +1,4 @@
-import { patch } from '@jkcfg/mixins/src/mixins';
+import { patch } from '@jkcfg/std/merge';
 
 // "Field transformer" functions take a _value_ and return an object
 // with _one or more fields_.
