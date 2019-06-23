@@ -19,6 +19,6 @@
     "indent": ["error", 2, {"SwitchCase": 0, "CallExpression": {"arguments": "first"}}],
     "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
     "object-curly-newline": ["error", { "ImportDeclaration": "never" }],
-    "no-use-before-define": ["error", { "functions": false, "classes": true }]  }
+    "no-use-before-define": ["error", { "functions": false, "classes": true }]
   }
 }
