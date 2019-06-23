@@ -1,20 +1,16 @@
-import { relocate, valueMap, transform, thread } from '../src/short/transform';
+import { relocate, valueMap, transform, thread, mapper, drop } from '../src/short/transform';
 
 test.each([
-
   {path: '', result: 'value'},
   {path: 'foo', result: { foo: 'value' } },
   {path: 'foo.bar.baz', result: { foo: { bar: { baz: 'value' } } } },
-
 ])('relocate', ({ path, result }) => {
   const rel = relocate(path);
   expect(rel('value')).toEqual(result);
 });
 
 test.each([
-
   {field: 'foo', map: {value: 'eulav'}, result: { 'foo': 'eulav'}},
-
 ])('valueMap', ({ field, map, result }) => {
   const vmap = valueMap(field, map);
   expect(vmap('value')).toEqual(result);
@@ -63,6 +59,46 @@ test('transform thread', () => {
       }
     }
   );
+});
+
+test ('transform drop', () => {
+  const partPodSpec = {
+    containers: [mapper({ name: 'name', image: 'image'}), 'spec.containers'],
+    node: 'spec.nodeName',
+    restart_policy: valueMap('spec.restartPolicy', {
+      'always': 'Always',
+      'on-failure': 'OnFailure',
+      'never': 'Never',
+    }),
+  };
+  const partDeploymentSpec = {
+    name: 'metadata.name',
+    ...drop('spec.template', partPodSpec),
+  };
+
+  const shortVal = {
+    name: 'hellodep',
+    node: 'barnode',
+    restart_policy: 'never',
+    containers: [
+      { name: 'hello', image: 'helloworld' },
+    ],
+  };
+
+  expect(transform(partDeploymentSpec, shortVal)).toEqual({
+    metadata: { name: shortVal.name },
+    spec: {
+      template: {
+        spec: {
+          nodeName: shortVal.node,
+          restartPolicy: 'Never',
+          containers: [
+            { name: 'hello', image: 'helloworld' },
+          ],
+        },
+      },
+    },
+  });
 });
 
 test('transform all', () => {

@@ -52,6 +52,21 @@ function thread(...transformers) {
   return initial => transformers.reduce((a, fn) => transformer(fn)(a), initial);
 }
 
+// drop takes a transformation spec and returns another spec, with
+// each field transformed as beofre, then relocated _under_ path. This
+// is useful for reusing a spec in a different context; e.g., the
+// podSpec in a deployment template. In that case the fields are all
+// expected at the top level of the short form, but relocated _en
+// masse_ to `spec.template.spec`.
+function drop(path, spec) {
+  const reloc = relocate(path);
+  const newSpec = {};
+  for (const [field, tx] of Object.entries(spec)) {
+    newSpec[field] = thread(tx, reloc);
+  }
+  return newSpec;
+}
+
 // valueMap creates a field transformer that maps the possible values
 // to other values, then relocates the field. This is useful, for
 // example, when the format has shorthands or aliases for enum values
@@ -77,5 +92,5 @@ function transform(spec, v0) {
 }
 
 export {
-  transform, relocate, valueMap, thread, mapper,
+  transform, relocate, valueMap, thread, mapper, drop,
 };

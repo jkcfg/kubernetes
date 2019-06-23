@@ -1,5 +1,5 @@
 import { apps, core } from '../api';
-import { transform, valueMap, mapper } from './transform';
+import { transform, valueMap, mapper, drop } from './transform';
 
 // Take a constructor (e.g., from the API) and return a transformer
 // that will construct the API resource given a API resource "shape".
@@ -294,8 +294,7 @@ const containerSpec = {
 };
 
 /* eslint-disable object-shorthand */
-const podSpec = {
-  ...objectMeta,
+const podTemplateSpec = {
   volumes: volumes,
   affinity: affinities,
   node: 'spec.nodeName',
@@ -325,8 +324,15 @@ const podSpec = {
   gids: 'spec.securityContext.supplementalGroups',
 };
 
-const workloadSpec = {
+const podSpec = {
   ...objectMeta,
+  ...podTemplateSpec,
+};
+
+const deploymentSpec = {
+  ...objectMeta,
+  pod_meta: drop('spec.template', objectMeta),
+  ...drop('spec.template', podTemplateSpec),
 };
 
 function sessionAffinity(value) {
@@ -376,6 +382,6 @@ const serviceSpec = {
 export default {
   namespace: makeResource(core.v1.Namespace, objectMeta),
   pod: makeResource(core.v1.Pod, podSpec),
-  deployment: makeResource(apps.v1.Deployment, workloadSpec),
+  deployment: makeResource(apps.v1.Deployment, deploymentSpec),
   service: makeResource(core.v1.Service, serviceSpec),
 };

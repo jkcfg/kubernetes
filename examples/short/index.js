@@ -8,7 +8,14 @@ const deployment = {
     name: 'foo-dep',
     namespace: 'foo-ns',
     labels: { app: 'hello' },
+    pod_meta: {
+      labels: { name: 'foo-pod' },
+    },
     containers: [
+      {
+        name: 'hello',
+        image: 'helloworld',
+      },
     ],
   }
 };
