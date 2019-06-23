@@ -1,7 +1,7 @@
 // An example of using shortened forms to represent resources.
 
+import { valuesForGenerate } from '@jkcfg/kubernetes/generate';
 import { long } from '@jkcfg/kubernetes/short';
-import std from '@jkcfg/std';
 
 const deployment = {
   deployment: {
@@ -21,7 +21,4 @@ const service = {
   },
 };
 
-std.log('---\n', { format: std.Format.Raw });
-std.log(long(deployment), { format: std.Format.YAML });
-std.log('---\n', { format: std.Format.Raw });
-std.log(long(service), { format: std.Format.YAML });
+export default valuesForGenerate([deployment, service].map(long));
