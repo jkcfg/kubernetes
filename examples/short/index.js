@@ -7,10 +7,14 @@ const deployment = {
   deployment: {
     name: 'foo-dep',
     namespace: 'foo-ns',
-    labels: { app: 'hello' },
     pod_meta: {
-      labels: { name: 'foo-pod' },
+      labels: { app: 'hello' },
     },
+    recreate: false,
+    replicas: 5,
+    max_extra: 1,
+    max_unavailable: 2,
+    progress_deadline: 30,
     containers: [
       {
         name: 'hello',

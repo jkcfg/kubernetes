@@ -14,12 +14,13 @@ function makeResource(Ctor, spec) {
   };
 }
 
-const objectMeta = {
-  // not strictly metadata, but common to everything
+const topLevel = {
   version: 'apiVersion',
   // `kind` is not transformed here, rather used as the dispatch
   // mechanism, and supplied by the specific API resource constructor
+};
 
+const objectMeta = {
   // ObjectMeta
   name: 'metadata.name',
   namespace: 'metadata.namespace',
@@ -325,13 +326,30 @@ const podTemplateSpec = {
 };
 
 const podSpec = {
+  ...topLevel,
   ...objectMeta,
   ...podTemplateSpec,
 };
 
 const deploymentSpec = {
+  ...topLevel,
   ...objectMeta,
+  // metadata (labels, annotations) are used in the pod template
   pod_meta: drop('spec.template', objectMeta),
+  // these are particular to deployments
+  replicas: 'spec.replicas',
+  recreate: valueMap('spec.strategy.type', {
+    true: 'Recreate',
+    false: 'RollingUpdate',
+  }),
+  max_unavailable: 'spec.strategy.rollingUpdate.maxUnavailable',
+  max_extra: 'spec.strategy.rollingUpdate.maxSurge',
+  min_ready: 'spec.minReadySeconds',
+  max_revs: 'spec.revisionHistoryLimit',
+  progress_deadline: 'spec.progressDeadlineSeconds',
+  paused: 'spec.paused',
+  selector: 'spec.selector.matchLabels',
+  // most of the pod spec fields appear as a pod template
   ...drop('spec.template', podTemplateSpec),
 };
 
@@ -354,6 +372,7 @@ function sessionAffinity(value) {
 }
 
 const serviceSpec = {
+  ...topLevel,
   ...objectMeta,
   cname: 'spec.externalName',
   type: valueMap('spec.type', {
