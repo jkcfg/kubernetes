@@ -1,17 +1,17 @@
-import overlay from '@jkcfg/kubernetes/overlay';
-import { writeResources } from '../../@jkcfg/kubernetes/write';
-import std from '@jkcfg/std';
+import { overlay } from '@jkcfg/kubernetes/overlay';
+import { valuesForGenerate } from '@jkcfg/kubernetes/generate';
 
-async function generate() {
-  // this will just load the kustomization at the give file, and
-  // evaluate it.
-  var kustomize = overlay(std);
-  // we could read the file as an object, then run that through
-  // `overlay`; this is another way to do it, by constructing an
-  // object that refers to the file in question, and evaluating
-  // that. This latter way is useful as a shortcut, but also if you
-  // want to calculate the bases (or any other part of the object).
-  return kustomize('.', {
+// This is similar to the first example, but uses an object rather
+// than going straight to the filesystem, and overlays further
+// changes.
+//
+// The `bases` part loads and interprets a kustomization file, so
+// another way to do the first example would be:
+//
+//     overlay({ bases: ['.'] });
+//
+function generate() {
+  return overlay('.', {
     bases: ['.'],
     resources: ['service.yaml'],
     commonLabels: {
@@ -21,7 +21,4 @@ async function generate() {
   });
 }
 
-generate().then(writeResources((r) => {
-  std.log('---\n', { format: std.Format.Raw });
-  std.log(r, { format: std.Format.YAML });
-}));
+export default valuesForGenerate(generate());

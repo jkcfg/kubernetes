@@ -1,5 +1,6 @@
-import { chart } from '@jkcfg/kubernetes/chart';
-import std from '@jkcfg/std';
+import { generateChart } from '@jkcfg/kubernetes/chart';
+import * as param from '@jkcfg/std/param';
+import { log, Format } from '@jkcfg/std';
 
 import resources from './resources';
 
@@ -12,6 +13,4 @@ const defaults = {
   }
 };
 
-const output = resources => std.log(resources, { format: std.Format.YAMLStream });
-
-chart(resources, defaults, std.param).then(output);
+export default generateChart(resources, defaults, param);

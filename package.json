@@ -5,8 +5,7 @@
     "url": "https://github.com/jkcfg/kubernetes/issues"
   },
   "dependencies": {
-    "@jkcfg/std": "^0.2.6",
-    "handlebars": "^4.1.1"
+    "@jkcfg/std": "^0.2.6"
   },
   "description": "jk Kubernetes library",
   "devDependencies": {
@@ -17,7 +16,8 @@
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "handlebars": "^4.1.1"
   },
   "homepage": "https://github.com/jkcfg/kubernetes#readme",
   "keywords": [

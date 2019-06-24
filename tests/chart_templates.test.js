@@ -1,4 +1,7 @@
-import { load } from '../src/chart/template';
+import { loadDir } from '../src/chart/template';
+import handlebars from 'handlebars/lib/handlebars';
+
+const compile = handlebars.compile;
 
 const dir = (path) => {
   if (path === 'templates') {
@@ -32,8 +35,8 @@ const readString = (path) => {
 };
 
 test('load a dir of templates', () => {
-  const templateLoad = load({ dir, readString });
-  const out = templateLoad({ variable: 'handlebars' });
+  const templates = loadDir({ dir, readString, compile, parse: s => s });
+  const out = templates({ variable: 'handlebars' });
   expect.assertions(2);
   return out.then(([foo, bar]) => {
     expect(foo).toEqual(fooYAML);
