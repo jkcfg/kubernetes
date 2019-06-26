@@ -1,5 +1,6 @@
 {
   "name": "@jkcfg/kubernetes",
+  "version": "0.3.0",
   "author": "The jk Authors",
   "bugs": {
     "url": "https://github.com/jkcfg/kubernetes/issues"
@@ -59,6 +60,5 @@
     "moduleDirectories": [
       "<rootDir>/node_modules"
     ]
-  },
-  "version": "0.2.1"
+  }
 }
