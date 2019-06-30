@@ -1,9 +1,8 @@
 // Example of a Helm chart analogue, using handlebars
 
-import { chart, loadModuleTemplates } from '@jkcfg/kubernetes/chart';
-import { writeYAMLStream } from '@jkcfg/kubernetes/write';
+import { generateChart, loadModuleTemplates } from '@jkcfg/kubernetes/chart';
 import * as resource from '@jkcfg/std/resource';
-import std from '@jkcfg/std';
+import * as param from '@jkcfg/std/param';
 import handlebars from 'handlebars/lib/handlebars';
 
 const defaults = {
@@ -17,4 +16,4 @@ const defaults = {
 
 const templates = loadModuleTemplates(handlebars.compile, resource);
 
-chart(templates, defaults, std.param).then(val => std.log(val, { format: std.Format.YAMLStream }));
+export default generateChart(templates, defaults, param);

@@ -8,7 +8,7 @@ const loadTemplate = ({ readString, parse, compile }) => async function load(pat
 };
 
 function flatMap(fn, array) {
-  return Array.prototype.concat.call(Array.prototype.map.call(array, fn));
+  return [].concat(...array.map(fn));
 }
 
 // { readString, compile, dir } -> values -> Promise [string]
