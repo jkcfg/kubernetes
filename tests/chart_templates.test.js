@@ -35,7 +35,7 @@ const readString = (path) => {
 };
 
 test('load a dir of templates', () => {
-  const templates = loadDir({ dir, readString, compile, parse: s => s });
+  const templates = loadDir({ dir, readString, compile, parse: s => [s] });
   const out = templates({ variable: 'handlebars' });
   expect.assertions(2);
   return out.then(([foo, bar]) => {
