@@ -35,11 +35,17 @@ const compile = ({ read, Encoding }, opts = {}) => async function recurse(base, 
   const readBytes = f => read(`${base}/${f}`, { encoding: Encoding.Bytes });
 
   const {
+    // these are all fields interpreted by kustomize
     resources: resourceFiles = [],
     bases: baseFiles = [],
     patches: patchFiles = [],
     configMapGenerator = [],
     secretGenerator = [],
+
+    // you can supply your own transformations as functions here
+    transformations = [],
+    // you can supply Promise [resource] values here, e.g., by calling chart(...)
+    generatedResources = [],
   } = overlayObj;
 
   const patches = [];
@@ -47,10 +53,10 @@ const compile = ({ read, Encoding }, opts = {}) => async function recurse(base, 
     patches.push(readObj(f).then(patchResource));
   });
 
-  // TODO: add the other kinds of transformation: imageTags,
-  // commonAnnotations, etc.
+  // TODO: add the other kinds of transformation: imageTags, ..?
 
-  const resources = []; // :: [Promise [Resource]]
+  const resources = generatedResources;
+
   baseFiles.forEach((f) => {
     const obj = readObj(`${f}/${file}`);
     resources.push(obj.then(o => recurse(`${base}/${f}`, o)));
@@ -60,7 +66,9 @@ const compile = ({ read, Encoding }, opts = {}) => async function recurse(base, 
   resources.push(Promise.all(configMapGenerator.map(generateConfigMap(readStr))));
   resources.push(Promise.all(secretGenerator.map(generateSecret(readBytes))));
 
-  const transform = pipeline(...await Promise.all(patches), commonMetadata(overlayObj));
+  const transform = pipeline(...transformations,
+                             ...await Promise.all(patches),
+                             commonMetadata(overlayObj));
   return Promise.all(resources).then(flatten).then(rs => rs.map(transform));
 };
 
