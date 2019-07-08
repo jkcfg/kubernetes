@@ -1,4 +1,4 @@
-import { patchResource, rewriteImageRefs } from '../src/overlay/transforms';
+import { patchResource, rewriteImageRefs } from '../src/transform';
 import { apps } from '../src/api';
 
 // for the match predicate
