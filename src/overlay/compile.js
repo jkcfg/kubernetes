@@ -18,7 +18,7 @@
 //
 // Easy peasy!
 
-import { patchResource, commonMetadata } from './transforms';
+import { patchResource, commonMetadata } from '../transform';
 import { generateConfigMap, generateSecret } from './generators';
 
 const flatten = array => [].concat(...array);
