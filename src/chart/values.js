@@ -1,4 +1,4 @@
-import { patch } from '@jkcfg/std/merge';
+import { merge } from '@jkcfg/std/merge';
 
 // Given a means of getting parameters, and a specification of the
 // Values (including their defaults), compile a struct of values for
@@ -15,7 +15,7 @@ import { patch } from '@jkcfg/std/merge';
 const values = (param, opts = {}) => function compile(defaults) {
   const { prefix = 'values' } = opts;
   const commandLine = param.Object(prefix, {});
-  return patch(defaults, commandLine);
+  return merge(defaults, commandLine);
 };
 
 export { values };
