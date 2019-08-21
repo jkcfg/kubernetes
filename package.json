@@ -6,7 +6,7 @@
     "url": "https://github.com/jkcfg/kubernetes/issues"
   },
   "dependencies": {
-    "@jkcfg/std": "^0.2.6"
+    "@jkcfg/std": "^0.2.10"
   },
   "description": "jk Kubernetes library",
   "devDependencies": {

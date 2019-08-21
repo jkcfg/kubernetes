@@ -1,5 +1,30 @@
-import { patch, mix } from '@jkcfg/std/merge';
+import { merge } from '@jkcfg/std/merge';
 import { iterateContainers } from '../resources';
+
+// Interpret a series of transformations expressed either as object
+// patches (as in the argument to `patch` in this module), or
+// functions. Usually the first argument will be an object,
+// representing an initial value, but it can be a function (that will
+// be given an empty object as its argument).
+function mix(...transforms) {
+  let r = {};
+
+  for (const transform of transforms) {
+    switch (typeof transform) {
+    case 'object':
+      r = merge(r, transform);
+      break;
+    case 'function':
+      r = transform(r);
+      break;
+    default:
+      throw new TypeError('only objects and functions allowed as arguments');
+    }
+  }
+
+  return r;
+}
+
 
 // resourceMatch returns a predicate which gives true if the given
 // object represents the same resource as `template`, false otherwise.
@@ -23,7 +48,7 @@ function resourceMatch(target) {
 // untouched.
 function patchResource(p) {
   const match = resourceMatch(p);
-  return v => (match(v) ? patch(v, p) : v);
+  return v => (match(v) ? merge(v, p) : v);
 }
 
 // commonMetadata returns a tranformation that will indiscriminately

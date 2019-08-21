@@ -1,7 +1,7 @@
 import { compile } from '../src/overlay/compile';
 import { fs, Encoding } from './mock';
 import { core } from '../src/api';
-import { merge } from '@jkcfg/std/merge';
+import { merge, deepWithKey } from '@jkcfg/std/merge';
 
 test('trivial overlay: no bases, resources, patches', () => {
   const { read } = fs({}, {});
@@ -82,13 +82,21 @@ test('user-provided transformation', () => {
   const insertSidecar = (v) => {
     if (v.kind === 'Deployment') {
       return merge(v, {
-        'spec+': {
-          'template+': {
-            'spec+': {
-              'containers+': [{ name: 'sidecar', image: 'side:v1' }],
+        spec: {
+          template: {
+            spec: {
+              containers: [{ name: 'sidecar', image: 'side:v1' }],
             },
           },
         },
+      }, {
+        spec: {
+          template: {
+            spec: {
+              containers: deepWithKey('name'),
+            }
+          }
+        }
       });
     }
     return v;

@@ -1,4 +1,4 @@
-import { patch } from '@jkcfg/std/merge';
+import { merge } from '@jkcfg/std/merge';
 
 // "Field transformer" functions take a _value_ and return an object
 // with _one or more fields_.
@@ -85,7 +85,7 @@ function transform(spec, v0) {
     const tx = spec[field];
     if (tx !== undefined) {
       const fn = transformer(tx);
-      v1 = patch(v1, fn(value));
+      v1 = merge(v1, fn(value));
     }
   }
   return v1;
