@@ -1,7 +1,7 @@
 // An example of using shortened forms to represent resources.
 
 import { valuesForGenerate } from '@jkcfg/kubernetes/generate';
-import { long } from '@jkcfg/kubernetes/short';
+import { generateFromShorts } from '@jkcfg/kubernetes/short/generate';
 
 const deployment = {
   deployment: {
@@ -32,4 +32,4 @@ const service = {
   },
 };
 
-export default valuesForGenerate([deployment, service].map(long));
+export default generateFromShorts([deployment, service]);
