@@ -1,4 +1,4 @@
-.PHONY: dist clean gen test
+.PHONY: all dist clean gen test copy-schemas
 
 all: gen
 
@@ -8,10 +8,11 @@ gen:
 src/api.ts: gen
 src/shapes.ts: gen
 
-dist: src/api.ts src/shapes.ts
+dist: src/api.ts src/shapes.ts copy-schemas
 	npx tsc
 	npx tsc -d --emitDeclarationOnly --allowJs false
 	cp README.md LICENSE package.json @jkcfg/kubernetes
+	cp -R src/schemas @jkcfg/kubernetes/
 
 clean:
 	rm -rf @jkcfg
@@ -20,3 +21,10 @@ clean:
 test: gen
 	npm test
 	npm run lint
+
+copy-schemas:
+	git submodule update -- ./schemas
+	mkdir -p build/schemas
+	for d in schemas/*-local; do   \
+		cp -R "$$d" src/schemas/; \
+	done
