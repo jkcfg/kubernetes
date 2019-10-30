@@ -6,8 +6,7 @@
       2,
       {
         "ignore": [
-          "^std$",
-          "^@jkcfg/std$",
+          "^@jkcfg/std($|/)",
           "/?(api|shapes)$",
         ]
       }
