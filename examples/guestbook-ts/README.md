@@ -10,7 +10,7 @@ $ npm install
 $ npx tsc
 
 # Run jk on the resulting javascript
-$ jk run -v guestbook.ts
+$ jk run -v guestbook.js
 wrote redis-master-deployment.yaml
 ```
 
