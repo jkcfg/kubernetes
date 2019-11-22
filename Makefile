@@ -23,7 +23,7 @@ test: gen
 	npm run lint
 
 copy-schemas:
-	git submodule update -- ./schemas
+	git submodule update --init -- ./schemas
 	mkdir -p build/schemas
 	for d in schemas/*-local; do   \
 		cp -R "$$d" src/schemas/; \
