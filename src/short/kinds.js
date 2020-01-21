@@ -384,7 +384,7 @@ const serviceSpec = {
   external_ips: 'externalIPs',
   // port, node_port, ports -> TODO
   cluster_ip: 'clusterIP',
-  unread_endpoints: 'publishNotReadyAddresses',
+  unready_endpoints: 'publishNotReadyAddresses',
   route_policy: valueMap('externalTrafficPolicy', {
     'node-local': 'Node',
     'cluster-wide': 'Cluster',
