@@ -318,7 +318,7 @@ const podTemplateSpec = {
   scheduler_name: 'spec.schedulerName',
   account: account,
   tolerations: tolerations,
-  termination_grade_period: 'spec.terminationGradePeriodSeconds',
+  termination_grace_period: 'spec.terminationGracePeriodSeconds',
   active_deadline: 'spec.activeDeadlineSeconds',
   priority: priority,
   fs_gid: 'spec.securityContext.fsGroup',
