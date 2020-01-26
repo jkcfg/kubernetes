@@ -4,4 +4,6 @@ node_modules
 /src/api.ts
 /src/shapes.ts
 
+/plugins/jk-plugin-helm/jk-plugin-helm
+
 /examples/*/package-lock.json

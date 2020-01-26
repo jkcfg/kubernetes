@@ -1,6 +1,10 @@
-.PHONY: all dist clean gen test copy-schemas
+.PHONY: all dist clean gen test copy-schemas install FORCE
 
-all: gen
+PLUGINS = \
+	plugins/jk-plugin-helm/jk-plugin-helm \
+	$(NULL)
+
+all: gen $(PLUGINS)
 
 gen:
 	GO111MODULE=on go run ./cmd/apigen/ cmd/apigen/specs/swagger-v1.13.0.json cmd/apigen/templates ./src/
@@ -28,3 +32,10 @@ copy-schemas:
 	for d in schemas/*-local; do   \
 		cp -R "$$d" src/schemas/; \
 	done
+
+plugins/jk-plugin-helm/jk-plugin-helm: FORCE
+	cd $(@D) && GO111MODULE=on go build -o $(@F) -ldflags '-s -w' .
+
+D := $(shell go env GOPATH)/bin
+install: $(PLUGINS)
+	$(foreach p,$(PLUGINS),cp $(p) $(D))
