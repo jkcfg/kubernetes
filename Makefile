@@ -12,11 +12,12 @@ dist: src/api.ts src/shapes.ts copy-schemas
 	npx tsc
 	npx tsc -d --emitDeclarationOnly --allowJs false
 	cp README.md LICENSE package.json @jkcfg/kubernetes
-	cp -R src/schemas @jkcfg/kubernetes/
+	cp -R build/schemas @jkcfg/kubernetes/
 
 clean:
 	rm -rf @jkcfg
 	rm -f src/api.ts src/shapes.ts
+	rm -rf ./build
 
 test: gen
 	npm test
@@ -24,7 +25,10 @@ test: gen
 
 copy-schemas:
 	git submodule update --init -- ./schemas
-	mkdir -p build/schemas
-	for d in schemas/*-local; do   \
-		cp -R "$$d" src/schemas/; \
-	done
+	rm -rf ./build/schemas
+	GO111MODULE=on go run ./cmd/dedup/ ./schemas ./build/schemas
+
+build-image: dist
+	mkdir -p build/image
+	cp -R @jkcfg build/image/
+	docker build -t jkcfg/kubernetes -f Dockerfile build/image
