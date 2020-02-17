@@ -141,9 +141,24 @@ func copyOrSymlink(dest, src, compare string) (bool, error) {
 		return false, err
 	}
 	if bytes.Compare(srcbytes, comparebytes) == 0 {
-		// TODO readlink and point to that
-		// TODO relative links
-		return true, os.Symlink(compare, dest)
+		lstat, err := os.Lstat(compare)
+		if err != nil {
+			return true, err
+		}
+		var oldname string
+		if lstat.Mode()&os.ModeSymlink != 0 {
+			// since we do this each time, no need to chase it down
+			oldname, err = os.Readlink(compare)
+			if err != nil {
+				return true, err
+			}
+		} else {
+			// This is a bit of a cheat (we could pass the versions in
+			// instead?). Anyway, the symlink must be relative, so
+			// that it will survive being transplanted into an image
+			oldname = filepath.Join("..", filepath.Base(filepath.Dir(compare)), filepath.Base(compare))
+		}
+		return true, os.Symlink(oldname, dest)
 	}
 	return false, copy(dest, src)
 }
