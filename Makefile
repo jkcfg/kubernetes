@@ -41,6 +41,7 @@ build-image: dist
 	docker build -t jkcfg/kubernetes -f Dockerfile build/image
 
 ${SCHEMA_ZIP}:
+	mkdir build
 	curl -L -o "$@" "https://github.com/${KUBE_SCHEMA_ORG}/${KUBE_SCHEMA_REPO}/archive/${KUBE_SCHEMA_SHA1}.zip"
 
 ${SCHEMA_DIR}: ${SCHEMA_ZIP}
