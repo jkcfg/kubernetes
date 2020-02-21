@@ -18,7 +18,7 @@ pkg=github.com/$user/$repo
 # function upload() { ... }
 
 echo "==> Checking package.json is up to date"
-version=$(node ./version.js)
+version=$(node ./bin/version.js)
 if [ "$version" != "$tag" ]; then
     echo "error: releasing $tag but package.json references $version"
     exit 1
