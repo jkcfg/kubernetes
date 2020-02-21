@@ -1,2 +1,2 @@
 FROM scratch
-COPY @jkcfg /
+COPY @jkcfg/kubernetes /@jkcfg/kubernetes/
