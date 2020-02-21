@@ -5,3 +5,4 @@ node_modules
 /src/shapes.ts
 
 /examples/*/package-lock.json
+build/

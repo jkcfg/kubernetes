@@ -5,7 +5,7 @@ cache: npm
 
 env:
   global:
-    - GOVERSION=1.11.2
+    - GOVERSION=1.13.8
     - GOPATH=
     - GOROOT=
     - PATH=~/go-${GOVERSION}/bin:~/go/bin:$PATH
@@ -13,6 +13,9 @@ env:
 before_install:
     - (cd ~ && curl -fsSLO https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz)
     - mkdir ~/go-${GOVERSION} && tar xf ~/go${GOVERSION}.linux-amd64.tar.gz -C ~/go-${GOVERSION} --strip-components 1
+
+services:
+- docker
 
 jobs:
   include:
@@ -23,13 +26,15 @@ jobs:
     - name: unit tests
       script: make test
 
+    # Run make dist and build-image _without_ pushing results, if no tag
     - name: dist
-      script: make dist
+      script: make dist build-image
+      if: tag IS blank
 
+    # Run make dist and push stuff
     - stage: Deploy
       script:
         # build and publish
-        - make dist
-        - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > @jkcfg/kubernetes/.npmrc
-        - (cd @jkcfg/kubernetes && npm publish)
+        - make dist build-image
+        - ./bin/run-release.sh $TRAVIS_TAG
       if: tag IS present
