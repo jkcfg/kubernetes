@@ -39,4 +39,4 @@ if [ -z "$NPM_TOKEN" ]; then
     exit 1
 fi
 echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > @jkcfg/kubernetes/.npmrc
-npm publish @jkcfg/kubernetes
+(cd @jkcfg/kubernetes; npm publish)
