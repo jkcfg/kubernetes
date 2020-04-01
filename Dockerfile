@@ -1,2 +1,2 @@
 FROM scratch
-COPY @jkcfg/kubernetes /@jkcfg/kubernetes/
+COPY @jkcfg/kubernetes /jk/modules/@jkcfg/kubernetes/
