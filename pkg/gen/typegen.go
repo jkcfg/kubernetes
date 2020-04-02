@@ -420,7 +420,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
 					// Create a default value for the field.
-					defaultValue := fmt.Sprintf("desc && desc.%s || undefined", propName)
+					defaultValue := fmt.Sprintf("desc.%s", propName)
 					switch propName {
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
