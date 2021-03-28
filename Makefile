@@ -1,9 +1,6 @@
-KUBE_SCHEMA_ORG:=jkcfg
-KUBE_SCHEMA_REPO:=kubernetes-schema
-KUBE_SCHEMA_SHA1:=83d92a798500efd744a576df994196e75f3133dd
-SCHEMA_ZIP:=build/${KUBE_SCHEMA_ORG}-${KUBE_SCHEMA_REPO}-${KUBE_SCHEMA_SHA1}.zip
-# the next one is a consequence of how the zip file is made: the files
-# will be in a directory named for the repo and commit hash.
+KUBE_SCHEMA_ORG:=yannh
+KUBE_SCHEMA_REPO:=kubernetes-json-schema
+KUBE_SCHEMA_SHA1:=master
 SCHEMA_DIR:=build/raw/${KUBE_SCHEMA_REPO}-${KUBE_SCHEMA_SHA1}
 COPIED_MARK:=build/.copied.${KUBE_SCHEMA_SHA1}
 
@@ -42,9 +39,10 @@ build-image: dist
 	cp -R @jkcfg build/image/
 	docker build -t jkcfg/kubernetes -f Dockerfile build/image
 
-${SCHEMA_ZIP}:
+${SCHEMA_DIR}:
 	mkdir build
-	curl -L -o "$@" "https://github.com/${KUBE_SCHEMA_ORG}/${KUBE_SCHEMA_REPO}/archive/${KUBE_SCHEMA_SHA1}.zip"
-
-${SCHEMA_DIR}: ${SCHEMA_ZIP}
-	unzip -q ${SCHEMA_ZIP} -d build/raw/ "${KUBE_SCHEMA_REPO}-${KUBE_SCHEMA_SHA1}/*-local/*.json"
+	git clone --depth 1 --no-checkout "https://github.com/${KUBE_SCHEMA_ORG}/${KUBE_SCHEMA_REPO}" ${SCHEMA_DIR}
+	cd ${SCHEMA_DIR} && \
+	git sparse-checkout init --cone && \
+	git ls-tree -d -r HEAD --name-only | grep -E "v.*-local" | xargs git sparse-checkout add && \
+  git read-tree -mu HEAD
