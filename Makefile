@@ -1,6 +1,6 @@
 KUBE_SCHEMA_ORG:=yannh
 KUBE_SCHEMA_REPO:=kubernetes-json-schema
-KUBE_SCHEMA_SHA1:=master
+KUBE_SCHEMA_SHA1:=23cab9da14079ad764032a4b1c6efaef6739d24b
 SCHEMA_DIR:=build/raw/${KUBE_SCHEMA_REPO}-${KUBE_SCHEMA_SHA1}
 COPIED_MARK:=build/.copied.${KUBE_SCHEMA_SHA1}
 
@@ -40,7 +40,7 @@ build-image: dist
 	docker build -t jkcfg/kubernetes -f Dockerfile build/image
 
 ${SCHEMA_DIR}:
-	mkdir build
+	mkdir -p build
 	git clone --depth 1 --no-checkout "https://github.com/${KUBE_SCHEMA_ORG}/${KUBE_SCHEMA_REPO}" ${SCHEMA_DIR}
 	cd ${SCHEMA_DIR} && \
 	git sparse-checkout init --cone && \
